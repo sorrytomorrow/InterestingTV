@@ -1483,29 +1483,24 @@
               <FilePath>..\nwatch\game2.c</FilePath>
             </File>
             <File>
-              <FileName>menuUI.c</FileName>
+              <FileName>Image.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\nwatch\menuUI.c</FilePath>
+              <FilePath>..\nwatch\Image.c</FilePath>
             </File>
             <File>
-              <FileName>menudata.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\nwatch\menudata.c</FilePath>
-            </File>
-            <File>
-              <FileName>menudata.h</FileName>
+              <FileName>Image.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\nwatch\menudata.h</FilePath>
+              <FilePath>..\nwatch\Image.h</FilePath>
             </File>
             <File>
-              <FileName>TaskFun.c</FileName>
+              <FileName>MenuAll.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\nwatch\TaskFun.c</FilePath>
+              <FilePath>..\nwatch\MenuAll.c</FilePath>
             </File>
             <File>
-              <FileName>TaskFun.h</FileName>
+              <FileName>MenuAll.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\nwatch\TaskFun.h</FilePath>
+              <FilePath>..\nwatch\MenuAll.h</FilePath>
             </File>
           </Files>
         </Group>

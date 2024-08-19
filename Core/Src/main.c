@@ -50,7 +50,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-u8g2_t u8g2;
+extern struct Time_Data TimeClock;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -103,7 +103,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_USART1_UART_Init();
-  u8g2Init(&u8g2);
+  
   
   //draw_music_icon(&u8g2);
   /* USER CODE BEGIN 2 */

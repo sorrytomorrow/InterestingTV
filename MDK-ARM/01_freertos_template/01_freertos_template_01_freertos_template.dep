@@ -1,7 +1,7 @@
 Dependencies for Project '01_freertos_template', Target '01_freertos_template': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32f103xb.s)(0x64CDE542)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1" -I ../Core/Inc-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include--pd "__UVISION_VERSION SETA 532" --pd "_RTE_ SETA 1" --pd "STM32F10X_MD SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f103xb.lst --xref -o 01_freertos_template\startup_stm32f103xb.o --depend 01_freertos_template\startup_stm32f103xb.d)
-F (../Core/Src/main.c)(0x66C2FC3D)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\main.o --omf_browse 01_freertos_template\main.crf --depend 01_freertos_template\main.d)
+F (../Core/Src/main.c)(0x66C313A9)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\main.o --omf_browse 01_freertos_template\main.crf --depend 01_freertos_template\main.d)
 I (../Core/Inc/main.h)(0x6497E83D)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6497BAAC)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x64CDE53E)
@@ -96,7 +96,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6497BAAC)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h)(0x6497BAAC)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h)(0x6497BAAC)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h)(0x6497BAAC)
-F (../Core/Src/freertos.c)(0x66C2D6B1)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\freertos.o --omf_browse 01_freertos_template\freertos.crf --depend 01_freertos_template\freertos.d)
+F (../Core/Src/freertos.c)(0x66C3122D)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\freertos.o --omf_browse 01_freertos_template\freertos.crf --depend 01_freertos_template\freertos.d)
 I (../Drivers/DshanMCU-F103/driver_led.h)(0x65044669)
 I (../Drivers/DshanMCU-F103/driver_lcd.h)(0x66BC3ACB)
 I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdint.h)(0x5F63877C)
@@ -2312,70 +2312,57 @@ I (..\nwatch\english.h)(0x5E9E502A)
 I (../Drivers/DshanMCU-F103/driver_lcd.h)(0x66BC3ACB)
 I (../Drivers/DshanMCU-F103/driver_rotary_encoder.h)(0x66B06B19)
 I (../Drivers/DshanMCU-F103/driver_ir_receiver.h)(0x66B072F7)
-F (.\nwatch\menuUI.c)(0x66C0340C)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\menuui.o --omf_browse 01_freertos_template\menuui.crf --depend 01_freertos_template\menuui.d)
-I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
-I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-I (nwatch\TaskFun.h)(0x66BF2C18)
-I (nwatch\menudata.h)(0x66C02D06)
+F (..\nwatch\Image.c)(0x66C31620)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\image.o --omf_browse 01_freertos_template\image.crf --depend 01_freertos_template\image.d)
+I (..\nwatch\Image.h)(0x66C311B1)
+F (..\nwatch\Image.h)(0x66C311B1)()
+F (..\nwatch\MenuAll.c)(0x66C34632)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\menuall.o --omf_browse 01_freertos_template\menuall.crf --depend 01_freertos_template\menuall.d)
+I (..\nwatch\MenuAll.h)(0x66C311F8)
 I (..\nwatch\typedefs.h)(0x66B5CD3B)
 I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6497BAA5)
+I (..\nwatch\Image.h)(0x66C311B1)
+I (..\u8g2\fun_u8g2.h)(0x66C2FC1A)
+I (../Core/Inc/main.h)(0x6497E83D)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6497BAAC)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x64CDE53E)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x6497BAAC)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x6497BAAB)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h)(0x6497BAAB)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x6497BAA4)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x6497BAA4)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x6497BAA4)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x6497BAA4)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x6497BAAB)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x6497BAAC)
 I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stddef.h)(0x5F63877C)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x6497BAA5)
-I (../Core/Inc/FreeRTOSConfig.h)(0x66B1BF2A)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6497BAA5)
-I (..\nwatch\draw.h)(0x64F14C92)
-I (..\nwatch\resources.h)(0x66BDB091)
-I (..\nwatch\english.h)(0x5E9E502A)
-I (../Drivers/DshanMCU-F103/driver_lcd.h)(0x66BC3ACB)
-I (../Drivers/DshanMCU-F103/driver_rotary_encoder.h)(0x66B06B19)
-I (../Drivers/DshanMCU-F103/driver_ir_receiver.h)(0x66B072F7)
-F (.\nwatch\menudata.c)(0x66C02CF0)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\menudata.o --omf_browse 01_freertos_template\menudata.crf --depend 01_freertos_template\menudata.d)
-I (..\nwatch\resources.h)(0x66BDB091)
-I (..\nwatch\typedefs.h)(0x66B5CD3B)
-I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
-I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (..\nwatch\english.h)(0x5E9E502A)
-I (nwatch\menudata.h)(0x66C02D06)
-F (.\nwatch\menudata.h)(0x66C02D06)()
-F (.\nwatch\TaskFun.c)(0x66C02E19)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\taskfun.o --omf_browse 01_freertos_template\taskfun.crf --depend 01_freertos_template\taskfun.d)
-I (nwatch\TaskFun.h)(0x66BF2C18)
-I (nwatch\menudata.h)(0x66C02D06)
-I (..\nwatch\typedefs.h)(0x66B5CD3B)
-I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
-I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x6497BAA5)
-I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stddef.h)(0x5F63877C)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x6497BAA5)
-I (../Core/Inc/FreeRTOSConfig.h)(0x66B1BF2A)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x6497BAA5)
-I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x6497BAA5)
-I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
-I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdio.h)(0x5F63877C)
-F (.\nwatch\TaskFun.h)(0x66BF2C18)()
-F (..\u8g2\fun_u8g2.c)(0x66C2FC99)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\fun_u8g2.o --omf_browse 01_freertos_template\fun_u8g2.crf --depend 01_freertos_template\fun_u8g2.d)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc_ex.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h)(0x6497BAAC)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h)(0x6497BAAC)
+I (..\u8g2\u8g2.h)(0x669D0AF8)
+I (..\u8g2\u8x8.h)(0x669D0AF8)
+I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdarg.h)(0x5F63877C)
+I (D:\SingleChip\keil5_532\ARM\ARMCC\include\limits.h)(0x5F63877C)
+I (..\u8g2\stm32_u8g2.h)(0x66C18A1D)
+F (..\nwatch\MenuAll.h)(0x66C311F8)()
+F (..\u8g2\fun_u8g2.c)(0x66C310E6)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../Drivers/DshanMCU-F103 -I ..\nwatch -I ..\u8g2-I.\RTE\_01_freertos_template-ID:\SingleChip\keil5_532\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\SingleChip\keil5_532\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o 01_freertos_template\fun_u8g2.o --omf_browse 01_freertos_template\fun_u8g2.crf --depend 01_freertos_template\fun_u8g2.d)
 I (..\u8g2\u8g2.h)(0x669D0AF8)
 I (..\u8g2\u8x8.h)(0x669D0AF8)
 I (D:\SingleChip\keil5_532\ARM\ARMCC\include\stdint.h)(0x5F63877C)
