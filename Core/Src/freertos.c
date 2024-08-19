@@ -123,7 +123,7 @@ void MX_FREERTOS_Init(void) {
 	
 	LCD_Init();
 	RotaryEncoder_Init();
-	LCD_Clear();
+	//LCD_Clear();
 	IRReceiver_Init();
 	MPU6050_Init();
 	/*´´½¨I2cµÄ»¥³âËø*/

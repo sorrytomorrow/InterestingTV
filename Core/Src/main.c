@@ -103,11 +103,12 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_USART1_UART_Init();
-  
   u8g2Init(&u8g2);
-  testDrawProcess(&u8g2);
+  
+  //draw_music_icon(&u8g2);
   /* USER CODE BEGIN 2 */
-
+  //testDrawProcess(&u8g2);
+  
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -122,7 +123,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+	
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
