@@ -28,21 +28,29 @@ Project File Date:  08/19/2024
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\SingleChip\keil5_532\ARM\ARMCC\Bin'
 Build target '01_freertos_template'
 compiling MenuAll.c...
-..\nwatch\MenuAll.h(4): warning:  #1-D: last line of file ends without a newline
+..\nwatch\MenuAll.h(18): warning:  #1-D: last line of file ends without a newline
   #endif
-..\nwatch\Image.h(11): warning:  #1-D: last line of file ends without a newline
+..\nwatch\Image.h(25): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\u8g2\fun_u8g2.h(8): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\u8g2\stm32_u8g2.h(28): warning:  #1-D: last line of file ends without a newline
   #endif
-..\nwatch\MenuAll.c(31): warning:  #1-D: last line of file ends without a newline
-  }
-..\nwatch\MenuAll.c: 5 warnings, 0 errors
+../Drivers/DshanMCU-F103/driver_ir_receiver.h(84): warning:  #1295-D: Deprecated declaration Get_QueueIRHandle - give arg types
+  QueueHandle_t Get_QueueIRHandle();
+..\nwatch\MenuAll.c(79): warning:  #223-D: function "sprintf" declared implicitly
+  		sprintf(buffer,"%02d:%02d:%02d",TimeClock.Hour,TimeClock.Minute,TimeClock.Second);  //传递变量（十进制（占四格））
+..\nwatch\MenuAll.c(84): warning:  #167-D: argument of type "BaseType_t *" is incompatible with parameter of type "TickType_t *const"
+  		vTaskDelayUntil(&preTime,1000);
+..\nwatch\MenuAll.c(150): warning:  #177-D: variable "Flag_R"  was declared but never referenced
+  	bool Flag_R=true,Flag_L=true;
+..\nwatch\MenuAll.c(150): warning:  #177-D: variable "Flag_L"  was declared but never referenced
+  	bool Flag_R=true,Flag_L=true;
+..\nwatch\MenuAll.c: 9 warnings, 0 errors
 linking...
-Program Size: Code=21012 RO-data=3300 RW-data=248 ZI-data=15472  
+Program Size: Code=21712 RO-data=2684 RW-data=376 ZI-data=15624  
 FromELF: creating hex file...
-"01_freertos_template\01_freertos_template.axf" - 0 Error(s), 5 Warning(s).
+"01_freertos_template\01_freertos_template.axf" - 0 Error(s), 9 Warning(s).
 
 <h2>Software Packages used:</h2>
 

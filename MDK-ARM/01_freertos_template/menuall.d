@@ -45,3 +45,17 @@
 01_freertos_template\menuall.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\stdarg.h
 01_freertos_template\menuall.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\limits.h
 01_freertos_template\menuall.o: ..\u8g2\stm32_u8g2.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
+01_freertos_template\menuall.o: ../Core/Inc/FreeRTOSConfig.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
+01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
+01_freertos_template\menuall.o: ../Drivers/DshanMCU-F103/driver_ir_receiver.h

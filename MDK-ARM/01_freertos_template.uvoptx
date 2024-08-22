@@ -1132,7 +1132,7 @@
 
   <Group>
     <GroupName>Drivers/DshanMCU-F103</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1412,7 +1412,7 @@
       <GroupNumber>7</GroupNumber>
       <FileNumber>69</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\nwatch\game1.c</PathWithFileName>
@@ -1496,7 +1496,7 @@
 
   <Group>
     <GroupName>u8g2</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
