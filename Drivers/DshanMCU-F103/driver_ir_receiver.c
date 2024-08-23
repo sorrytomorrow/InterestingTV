@@ -53,7 +53,7 @@ static QueueHandle_t QueueDriIRHandle;
 
 
 
-/*返回红外任务的句柄*/
+/*返回红外的句柄*/
 QueueHandle_t Get_QueueIRHandle()
 {
 	return QueueDriIRHandle;

@@ -155,8 +155,12 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS *//*创建RTOS任务线程
   /* add threads, ... */
-  extern void Start_Menu(void);
-  xTaskCreate(Start_Menu,"Start_Menu_Task",128, NULL, osPriorityNormal,NULL);
+  
+//  extern void Start_Menu(void);
+//  xTaskCreate(Start_Menu,"Start_Menu_Task",128, NULL, osPriorityNormal,NULL);
+  extern void Second_Menu(void);
+  xTaskCreate(Second_Menu,"Menu_Task",128, NULL, osPriorityNormal,NULL);
+  
   //xTaskCreate(MenuTask,"menutask",128, NULL, osPriorityNormal,NULL);
  
   //xTaskCreate(game1_task,"PlayGame",128, NULL, osPriorityNormal,NULL);
