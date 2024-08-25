@@ -38,7 +38,7 @@ static const byte clearImg[] ={
 static uint8_t *g_framebuffer;
 static uint32_t g_xres, g_yres, g_bpp;
 static QueueHandle_t g_xQueuePlatform1,g_xQueuePlatform2;
-static QueueHandle_t g_xQueuePlatform_IR;
+static QueueHandle_t g_xQueuePlatform2_IR;
 static QueueHandle_t g_xQueuePlatform_RT;
 static QueueSetHandle_t  g_xQueueLists;
 static byte uptMove1,uptMove2;
@@ -154,7 +154,7 @@ static void InputDataIR(void)
 	static int Last_data;
 	TypedefDataIR idata;
 	TypedefDataOT odata;
-	xQueueReceive(g_xQueuePlatform_IR,&idata,0);
+	xQueueReceive(g_xQueuePlatform2_IR,&idata,0);
 	/*判断向左*/
 	if(idata.data==0xe0)
 	{
@@ -253,7 +253,7 @@ static void InputDataInPlatform(void *params)
 		g_TempQueueLine=xQueueSelectFromSet(g_xQueueLists,portMAX_DELAY);
 		if(g_TempQueueLine)
 		{
-			if(g_TempQueueLine==g_xQueuePlatform_IR)
+			if(g_TempQueueLine==g_xQueuePlatform2_IR)
 			{
 				InputDataIR();
 			}
@@ -288,7 +288,9 @@ void game2_task(void* params)
 	platform2.y = 8;
 
 	/*传递队列*/
-	g_xQueuePlatform_IR = Get_QueueIRHandle();
+	g_xQueuePlatform2_IR = xQueueCreate(15,sizeof(TypedefDataIR));
+	RegisterQueueHandle(g_xQueuePlatform2_IR);
+	
 	g_xQueuePlatform_RT = Get_QueueDriRotenHandle();
 	/*创建挡球板队列*/
 	g_xQueuePlatform1 = xQueueCreate(15,sizeof(TypedefDataOT));
@@ -296,7 +298,7 @@ void game2_task(void* params)
 	
 	/*创建队列集*/
 	g_xQueueLists = xQueueCreateSet(45);
-	xQueueAddToSet(g_xQueuePlatform_IR,g_xQueueLists);
+	xQueueAddToSet(g_xQueuePlatform2_IR,g_xQueueLists);
 	xQueueAddToSet(g_xQueuePlatform_RT,g_xQueueLists);
 	
 	

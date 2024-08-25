@@ -128,6 +128,8 @@ void MX_FREERTOS_Init(void) {
 	MPU6050_Init();
 	/*´´½¨I2cµÄ»¥³âËø*/
 	g_xI2cMutex=xSemaphoreCreateMutex();
+	
+	
 	//LCD_PrintString(0, 0, "Starting");
   /* USER CODE BEGIN Init */
 	
@@ -158,13 +160,14 @@ void MX_FREERTOS_Init(void) {
   
 //  extern void Start_Menu(void);
 //  xTaskCreate(Start_Menu,"Start_Menu_Task",128, NULL, osPriorityNormal,NULL);
-  extern void Second_Menu(void);
-  xTaskCreate(Second_Menu,"Menu_Task",128, NULL, osPriorityNormal,NULL);
+
+  extern void Task_Control(void);
+  xTaskCreate(Task_Control,"Task_Control",128, NULL, osPriorityNormal+1,NULL);
   
   //xTaskCreate(MenuTask,"menutask",128, NULL, osPriorityNormal,NULL);
- 
-  //xTaskCreate(game1_task,"PlayGame",128, NULL, osPriorityNormal,NULL);
-  //xTaskCreate(game2_task,"PlayGame2",128, NULL, osPriorityNormal,&xgame1_TaskHandle);
+  //extern void game2_task(void);
+//  xTaskCreate(game1_task,"PlayGame",128, NULL, osPriorityNormal,NULL);
+  //xTaskCreate(game2_task,"PlayGame2",128, NULL, osPriorityNormal,NULL);
   //xTaskCreate(PlayMusic,"PlayMusic",128, NULL, osPriorityNormal,NULL);
   //xTaskCreate(IR_Contorl_Menu_task,"IRContorMenuTask",128, NULL, osPriorityNormal+1,NULL);
   //text

@@ -72,6 +72,8 @@
 "01_freertos_template\game2.o"
 "01_freertos_template\image.o"
 "01_freertos_template\menuall.o"
+"01_freertos_template\menudatas.o"
+"01_freertos_template\taskfun.o"
 "01_freertos_template\fun_u8g2.o"
 "01_freertos_template\mui.o"
 "01_freertos_template\mui_u8g2.o"

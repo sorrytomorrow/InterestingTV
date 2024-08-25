@@ -1502,6 +1502,16 @@
               <FileType>5</FileType>
               <FilePath>..\nwatch\MenuAll.h</FilePath>
             </File>
+            <File>
+              <FileName>MenuDatas.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\nwatch\MenuDatas.c</FilePath>
+            </File>
+            <File>
+              <FileName>TaskFun.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\nwatch\TaskFun.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

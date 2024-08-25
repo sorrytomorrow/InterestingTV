@@ -264,7 +264,8 @@ void game1_task(void *params)
 	/*创建队列,从红外传感器中读取数据*//*消费者*/
 	g_xQueuePlatform = xQueueCreate(15,sizeof(TypedefDataOT));
 	
-	g_xQueuePlatform_IR = Get_QueueIRHandle();
+	g_xQueuePlatform_IR = xQueueCreate(15,sizeof(TypedefDataIR));
+	RegisterQueueHandle(g_xQueuePlatform_IR);
 	g_xQueuePlatform_RT = Get_QueueDriRotenHandle();
 	g_xQueuePlatform_MPU6 = Get_QueueMpu6Handle();
 	

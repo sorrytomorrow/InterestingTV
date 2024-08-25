@@ -46,18 +46,11 @@ static uint64_t g_IRReceiverIRQ_Timers[68];
 static int g_IRReceiverIRQ_Cnt = 0;
 static uint8_t g_LastData;
 
-
+static QueueHandle_t g_xQueues[10];
+static int g_queue_cnt = 0;
 //外部的全局变量声明
-static TypedefDataIR Data_Input_IR_1,Data_Input_IR_0;
-static QueueHandle_t QueueDriIRHandle;
+static TypedefDataIR Data_Input_IR_0;
 
-
-
-/*返回红外的句柄*/
-QueueHandle_t Get_QueueIRHandle()
-{
-	return QueueDriIRHandle;
-}
 
 
 #define NEXT_POS(x) ((x+1) % BUF_LEN)
@@ -134,6 +127,38 @@ static unsigned char GetKeyFromBuf(void)
 	return key;
 }
 
+//注册队列
+void RegisterQueueHandle(QueueHandle_t queueHandle)
+{
+	if (g_queue_cnt < 10)
+	{
+		g_xQueues[g_queue_cnt] = queueHandle;
+		g_queue_cnt++;
+	}
+}
+
+//分发数据
+static void DispatchKey(TypedefDataIR *pidata)
+{
+#if 0	
+	extern QueueHandle_t g_xQueueCar1;
+	extern QueueHandle_t g_xQueueCar2;
+	extern QueueHandle_t g_xQueueCar3;
+
+	xQueueSendFromISR(g_xQueueCar1, pidata, NULL);
+	xQueueSendFromISR(g_xQueueCar2, pidata, NULL);
+	xQueueSendFromISR(g_xQueueCar3, pidata, NULL);
+#else
+	int i;
+	for (i = 0; i < g_queue_cnt; i++)
+	{
+		xQueueSendFromISR(g_xQueues[i], pidata, NULL);
+	}
+#endif	
+}
+
+
+
 /**********************************************************************
  * 函数名称： IRReceiver_IRQTimes_Parse
  * 功能描述： 解析中断回调函数里记录的时间序列,得到的device和key放入环形缓冲区
@@ -207,9 +232,11 @@ static int IRReceiver_IRQTimes_Parse(void)
 //	xQueueSendToBackFromISR(g_xQueuePlayMusic,&Data_Input_IR_1,NULL);
 	Data_Input_IR_0.dev = datas[0];
 	Data_Input_IR_0.data = datas[2];
-    
-	xQueueSendToBackFromISR(QueueDriIRHandle,&Data_Input_IR_0,NULL);
 	
+//    Data_Input_IR_1.dev = datas[0];
+//	Data_Input_IR_1.data = datas[2];
+	DispatchKey(&Data_Input_IR_0);
+	//xQueueSendToBackFromISR(QueueDriIRHandle1,&Data_Input_IR_1,NULL);
 	
 	
     return 0;
@@ -295,7 +322,10 @@ void IRReceiver_IRQ_Callback(void)
 			Data_Input_IR_0.data = 0;   //如果输入的值跟上一个值重复，返回g_LastData
 			Data_Input_IR_0.dev = 0;
 			
-			xQueueSendToBackFromISR(QueueDriIRHandle,&Data_Input_IR_0,NULL);
+//			Data_Input_IR_1.data = 0;   //如果输入的值跟上一个值重复，返回g_LastData
+//			Data_Input_IR_1.dev = 0;
+			
+			DispatchKey(&Data_Input_IR_0);
 			
 			g_IRReceiverIRQ_Cnt = 0;
 		}
@@ -328,7 +358,7 @@ void IRReceiver_Init(void)
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 #endif
-	QueueDriIRHandle=xQueueCreate(15,sizeof(Data_Input_IR_0));
+	
 }
 
 /**********************************************************************
