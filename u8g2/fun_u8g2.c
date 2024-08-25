@@ -22,14 +22,15 @@ void testDrawProcess(u8g2_t *u8g2)
 		u8g2_DrawStr(u8g2,16,32,"Loading");//字符显示
 		
 		u8g2_SetFont(u8g2,u8g2_font_ncenB08_tf);
-		u8g2_DrawStr(u8g2,100,49,buff);//当前进度显示
+		u8g2_DrawStr(u8g2,60,49,buff);//当前进度显示
 		
 		u8g2_DrawRBox(u8g2,16,40,i,10,4);//圆角填充框矩形框
 		u8g2_DrawRFrame(u8g2,16,40,40,10,4);//圆角矩形
 		
 		u8g2_SendBuffer(u8g2);    //从缓冲区中发送数据
 	}
-	HAL_Delay(50);
+	
+	u8g2_ClearBuffer(u8g2);
 }
 
 

@@ -27,6 +27,18 @@ Project File Date:  08/24/2024
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\SingleChip\keil5_532\ARM\ARMCC\Bin'
 Build target '01_freertos_template'
+compiling freertos.c...
+../Drivers/DshanMCU-F103/driver_rotary_encoder.h(71): warning:  #1295-D: Deprecated declaration Get_QueueDriRotenHandle - give arg types
+  QueueHandle_t Get_QueueDriRotenHandle();
+../Core/Src/freertos.c(159): warning:  #9-D: nested comment is not allowed
+    /* add threads, ... */
+../Core/Src/freertos.c(165): warning:  #167-D: argument of type "void (*)(void)" is incompatible with parameter of type "TaskFunction_t"
+    xTaskCreate(Task_Control,"Task_Control",128, NULL, osPriorityNormal,NULL);
+../Core/Src/freertos.c(204): warning:  #177-D: variable "dev"  was declared but never referenced
+  	uint8_t dev, data;
+../Core/Src/freertos.c(77): warning:  #550-D: variable "ret"  was set but never used
+  static BaseType_t ret;
+../Core/Src/freertos.c: 5 warnings, 0 errors
 compiling TaskFun.c...
 ..\u8g2\fun_u8g2.h(8): warning:  #1-D: last line of file ends without a newline
   #endif
@@ -34,35 +46,13 @@ compiling TaskFun.c...
   #endif
 ..\nwatch\MenuAll.h(59): warning:  #1-D: last line of file ends without a newline
   #endif
-..\nwatch\TaskFun.c(77): warning:  #167-D: argument of type "void (*)(void)" is incompatible with parameter of type "TaskFunction_t"
+..\nwatch\TaskFun.c(80): warning:  #167-D: argument of type "void (*)(void)" is incompatible with parameter of type "TaskFunction_t"
   	xTaskCreate(Temp_TaskData->func,Temp_TaskData->Name,128,
 ..\nwatch\TaskFun.c: 4 warnings, 0 errors
-compiling MenuAll.c...
-..\u8g2\fun_u8g2.h(8): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\u8g2\stm32_u8g2.h(28): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\nwatch\MenuAll.h(59): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\nwatch\Image.h(26): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\nwatch\MenuAll.c(73): warning:  #223-D: function "sprintf" declared implicitly
-  		sprintf(buffer,"%02d:%02d:%02d",TimeClock.Hour,TimeClock.Minute,TimeClock.Second);  //传递变量（十进制（占四格））
-..\nwatch\MenuAll.c(78): warning:  #167-D: argument of type "BaseType_t *" is incompatible with parameter of type "TickType_t *const"
-  		vTaskDelayUntil(&preTime,1000);
-..\nwatch\MenuAll.c(131): warning:  #177-D: variable "DataIR"  was declared but never referenced
-  	TypedefDataIR DataIR;
-..\nwatch\MenuAll.c(134): warning:  #177-D: variable "Flag_R"  was declared but never referenced
-  	bool Flag_R=true,Flag_L=true;
-..\nwatch\MenuAll.c(134): warning:  #177-D: variable "Flag_L"  was declared but never referenced
-  	bool Flag_R=true,Flag_L=true;
-..\nwatch\MenuAll.c(24): warning:  #177-D: variable "g_xQueueMenu_IR"  was declared but never referenced
-  static QueueHandle_t g_xQueueMenu_IR;
-..\nwatch\MenuAll.c: 10 warnings, 0 errors
 linking...
-Program Size: Code=26228 RO-data=17148 RW-data=416 ZI-data=15664  
+Program Size: Code=26356 RO-data=17148 RW-data=416 ZI-data=15664  
 FromELF: creating hex file...
-"01_freertos_template\01_freertos_template.axf" - 0 Error(s), 14 Warning(s).
+"01_freertos_template\01_freertos_template.axf" - 0 Error(s), 9 Warning(s).
 
 <h2>Software Packages used:</h2>
 

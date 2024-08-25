@@ -162,7 +162,7 @@ void MX_FREERTOS_Init(void) {
 //  xTaskCreate(Start_Menu,"Start_Menu_Task",128, NULL, osPriorityNormal,NULL);
 
   extern void Task_Control(void);
-  xTaskCreate(Task_Control,"Task_Control",128, NULL, osPriorityNormal+1,NULL);
+  xTaskCreate(Task_Control,"Task_Control",128, NULL, osPriorityNormal,NULL);
   
   //xTaskCreate(MenuTask,"menutask",128, NULL, osPriorityNormal,NULL);
   //extern void game2_task(void);

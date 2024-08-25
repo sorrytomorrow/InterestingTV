@@ -24,12 +24,12 @@ void Task_Control(void)
 	g_xIRBinary=xSemaphoreCreateBinary();
 	//创建所有任务
 	CreateTask(&Task_AllData[Layer]);
-//	CreateTask(&Task_AllData[Layer+1]);
-//	SuspendTask(&Task_AllData[Layer+1]);
+	CreateTask(&Task_AllData[Layer+1]);
+	SuspendTask(&Task_AllData[Layer+1]);
 	while(1)
 	{
 		
-		if(pdPASS==xQueueReceive(g_xQueueTaskControl_IR,&DataIR,0))
+		if(pdPASS==xQueueReceive(g_xQueueTaskControl_IR,&DataIR,portMAX_DELAY))
 		{
 			Anal_IRData(&DataIR);
 			//确认
@@ -37,11 +37,13 @@ void Task_Control(void)
 			{
 				if(Layer<1)
 				{
-					
-					DelectTask(&Task_AllData[Layer]);
+					vTaskDelay(10);
+					SuspendTask(&Task_AllData[Layer]);
 					Layer++;
 					testDrawProcess(&u8g2);
-					CreateTask(&Task_AllData[Layer]);
+					vTaskDelay(10);
+					ResumeTask(&Task_AllData[Layer]);
+					Ment=None;
 				}
 			}
 			//返回
@@ -49,11 +51,13 @@ void Task_Control(void)
 			{
 				if(Layer>0)
 				{
-					
-					DelectTask(&Task_AllData[Layer]);
+					vTaskDelay(10);
+					SuspendTask(&Task_AllData[Layer]);
 					Layer--;
 					testDrawProcess(&u8g2);
-					CreateTask(&Task_AllData[Layer]);
+					vTaskDelay(10);
+					ResumeTask(&Task_AllData[Layer]);
+					Ment=None;
 				}
 			}
 			
@@ -61,7 +65,6 @@ void Task_Control(void)
 			
 		}
 		
-		vTaskDelay(150);
 	}
 	
 }
@@ -75,7 +78,7 @@ void CreateTask(void* params)
 {
 	struct Task_Data* Temp_TaskData = params;
 	xTaskCreate(Temp_TaskData->func,Temp_TaskData->Name,128,
-					NULL,osPriorityNormal,Temp_TaskData->p_TaskHandle);
+					NULL,osPriorityNormal+1,Temp_TaskData->p_TaskHandle);
 }
 
 void DelectTask(void* params)
@@ -100,7 +103,7 @@ void Anal_IRData(void* params)
 		
 }
 
-#if 0
+#if 1
 void SuspendTask(void* params)
 {
 	struct Task_Data* Temp_TaskData = params;

@@ -17,7 +17,7 @@ u8g2_t u8g2;
 /*TimeData Set*/
 struct Time_Data TimeClock={22,0,0};
 /*index*/
-static int16_t index[][6] = {{10,17},{52,17},{96,17},{-32,17},{138,17}}; //选框的坐标 
+static int16_t index[][6] = {{8,17},{52,17},{96,17},{-36,17},{140,17}}; //选框的坐标 
 struct Image_Data AllImage_Data[]={{Clear_Big,""},{Light,"Light"},{Music,"Music"},
 									{Game,"Game"},{Set,"SetUp"},{Exit,"Exit"},{Clear_Big,""}};
 
@@ -35,7 +35,6 @@ void Start_Menu(void)
 	BaseType_t preTime;
 	u8g2Init(&u8g2);
 	
-	preTime = xTaskGetTickCount();
 	while(1)
 	{
 		
@@ -75,7 +74,7 @@ void Start_Menu(void)
 		
 		u8g2_SendBuffer(&u8g2);
 		TimeClock.Second++;
-		vTaskDelayUntil(&preTime,1000);
+		vTaskDelay(1000);
 	}
 	
 	
@@ -132,44 +131,48 @@ void Second_Menu(void)
 	uint8_t i_page=1,j=0;
 	uint8_t width;       //得到下方字体的宽度动态变化方向键
 	bool Flag_R=true,Flag_L=true;
-	
-	/*Draw Picture*/
 	u8g2_ClearBuffer(&u8g2);
-	u8g2_DrawXBMP(&u8g2,index[0][0],index[0][1],25,30,AllImage_Data[0].Image);
-	u8g2_DrawXBMP(&u8g2,index[1][0],index[1][1],25,30,AllImage_Data[1].Image);
-	u8g2_DrawXBMP(&u8g2,index[2][0],index[2][1],25,30,AllImage_Data[2].Image);
-	
-	/*Draw Arrow*/
-	u8g2_DrawXBMP(&u8g2,0,0,10,9,Right_Arrow);
-	u8g2_DrawXBMP(&u8g2,118,0,10,9,Left_Arrow);
 	
 	//下方字体箭头包围(先写上第一张图的名字,不然得不到width)
 	u8g2_SetFont(&u8g2,u8g2_font_ncenB08_tf);
-	u8g2_DrawStr(&u8g2,52,60,AllImage_Data[1].Name);
-	width = u8g2_GetStrWidth(&u8g2,AllImage_Data[1].Name);
+	u8g2_DrawStr(&u8g2,52,60,AllImage_Data[i_page].Name);
+	
+	width = u8g2_GetStrWidth(&u8g2,AllImage_Data[i_page].Name);
 	u8g2_DrawXBMP(&u8g2,35,52,16,8,Select_Left);   //下方
 	u8g2_DrawXBMP(&u8g2,52+width+1,52,16,8,Select_Right);
 	
-	//Draw Device_Name
-	u8g2_SetFont(&u8g2,u8g2_font_tenthinguys_t_all);
-	u8g2_DrawStr(&u8g2,50,9,DeviceName);
-	
-	u8g2_SendBuffer(&u8g2);
 	while(1)
 	{
+
+		/*Draw Picture*/
 		
+		u8g2_DrawXBMP(&u8g2,index[0][0],index[0][1],25,30,AllImage_Data[i_page-1].Image);
+		u8g2_DrawXBMP(&u8g2,index[1][0],index[1][1],25,30,AllImage_Data[i_page].Image);
+		u8g2_DrawXBMP(&u8g2,index[2][0],index[2][1],25,30,AllImage_Data[i_page+1].Image);
+		
+		
+		/*Draw Arrow*/
+		u8g2_DrawXBMP(&u8g2,0,0,10,9,Right_Arrow);
+		u8g2_DrawXBMP(&u8g2,118,0,10,9,Left_Arrow);
+		
+		
+		
+		//Draw Device_Name
+		u8g2_SetFont(&u8g2,u8g2_font_tenthinguys_t_all);
+		u8g2_DrawStr(&u8g2,50,9,DeviceName);
+		u8g2_SetFont(&u8g2,u8g2_font_ncenB08_tf);
 		
 		/*Right*/
 		if(Ment==Right)
 		{
 			
 			u8g2_DrawXBMP(&u8g2,35,51,80,16,Clear_Word);
-			while(j<42&&i_page<5)
+			while(j<44&&i_page<5)
 			{
 				u8g2_DrawXBMP(&u8g2,0,16,128,32,Clear_Big);
 				
 				
-				j+=6;
+				j+=4;
 				u8g2_DrawXBMP(&u8g2,index[0][0]-j,index[0][1],25,30,AllImage_Data[i_page-1].Image);
 				u8g2_DrawXBMP(&u8g2,index[1][0]-j,index[1][1],25,30,AllImage_Data[i_page].Image);
 				u8g2_DrawXBMP(&u8g2,index[2][0]-j,index[2][1],25,30,AllImage_Data[i_page+1].Image);
@@ -182,8 +185,7 @@ void Second_Menu(void)
 			if(i_page>=5)
 				i_page=5;
 			width = u8g2_GetStrWidth(&u8g2,AllImage_Data[i_page].Name);
-			u8g2_DrawXBMP(&u8g2,35,52,16,8,Select_Left);   //下方
-			u8g2_DrawXBMP(&u8g2,52+width+1,52,16,8,Select_Right);
+			
 			Ment=None;
 			
 		}
@@ -192,12 +194,12 @@ void Second_Menu(void)
 		{
 			
 			u8g2_DrawXBMP(&u8g2,35,51,80,16,Clear_Word);
-			while(j<42&&i_page>1)
+			while(j<44&&i_page>1)
 			{
 
 				u8g2_DrawXBMP(&u8g2,0,16,128,32,Clear_Big);
 			
-				j+=6;
+				j+=4;
 				u8g2_DrawXBMP(&u8g2,index[3][0]+j,index[3][1],25,30,AllImage_Data[i_page-2].Image);
 				u8g2_DrawXBMP(&u8g2,index[0][0]+j,index[0][1],25,30,AllImage_Data[i_page-1].Image);
 				u8g2_DrawXBMP(&u8g2,index[1][0]+j,index[1][1],25,30,AllImage_Data[i_page].Image);
@@ -211,14 +213,15 @@ void Second_Menu(void)
 			if(i_page<=1)
 				i_page=1;
 			width = u8g2_GetStrWidth(&u8g2,AllImage_Data[i_page].Name);
-			u8g2_DrawXBMP(&u8g2,35,52,16,8,Select_Left);   //下方
-			u8g2_DrawXBMP(&u8g2,52+width+1,52,16,8,Select_Right);
 			Ment=None;
 		}
 	
 		
 		i_pageAll=i_page;
 		UI_Arrow(AllImage_Data[i_page].Name);
+		u8g2_DrawXBMP(&u8g2,35,52,16,8,Select_Left);   //下方
+		u8g2_DrawXBMP(&u8g2,52+width+1,52,16,8,Select_Right);
+		
 		u8g2_SendBuffer(&u8g2);
 		vTaskDelay(150);
 	}
