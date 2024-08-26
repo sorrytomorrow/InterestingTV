@@ -163,7 +163,16 @@ void MX_FREERTOS_Init(void) {
 
   extern void Task_Control(void);
   xTaskCreate(Task_Control,"Task_Control",128, NULL, osPriorityNormal,NULL);
-  
+
+
+
+//	struct Item_Data{
+//	const char** Name;     //对指针的地址进解指针操作,得到这个指针里面存储的字符串的地址
+//	uint8_t Num;
+//	};
+//	extern struct Item_Data AllItem_Data[];
+//	extern void Third_Menu(void* params);
+//	xTaskCreate(Third_Menu,"Task_Control",128,&AllItem_Data[0], osPriorityNormal,NULL);
   //xTaskCreate(MenuTask,"menutask",128, NULL, osPriorityNormal,NULL);
   //extern void game2_task(void);
 //  xTaskCreate(game1_task,"PlayGame",128, NULL, osPriorityNormal,NULL);

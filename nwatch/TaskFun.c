@@ -1,21 +1,23 @@
-#include "MenuAll.h"
+#include "Data.h"
 #include "driver_ir_receiver.h"
 
+/*Set Time*/
+struct Time_Data TimeClock={22,0,0};
 
+const char* GameData[]={"Game","PlatForm","PlatForm Two","Car"};
+struct Item_Data AllItem_Data[] = {{NULL,NULL},{GameData,4},{GameData,4},{GameData,4}};
 /*动态创建任务*/
 static TaskHandle_t g_xTaskHanlde_Second_Menu=NULL;
 static TaskHandle_t g_xTaskHanlde_Start_Menu=NULL;
-
+static TaskHandle_t g_xTaskHanlde_Third_Menu=NULL;
 static uint8_t Layer=0;
 static QueueHandle_t g_xQueueTaskControl_IR;
 SemaphoreHandle_t g_xIRBinary;
-struct Task_Data Task_AllData[]={{"Start_Menu",Start_Menu,&g_xTaskHanlde_Start_Menu},
-							{"Second_Menu",Second_Menu,&g_xTaskHanlde_Second_Menu}};
+struct Task_Data Task_AllData[]={{"Start_Menu",Start_Menu,&g_xTaskHanlde_Start_Menu,NULL},
+							{"Second_Menu",Second_Menu,&g_xTaskHanlde_Second_Menu,NULL},
+							{"Third_Menu",Third_Menu,&g_xTaskHanlde_Third_Menu,&AllItem_Data[1]}};
 
 								
-
-
-
 void Task_Control(void)
 {
 	g_xQueueTaskControl_IR = xQueueCreate(1,sizeof(TypedefDataIR));
@@ -23,9 +25,11 @@ void Task_Control(void)
 	TypedefDataIR DataIR;
 	g_xIRBinary=xSemaphoreCreateBinary();
 	//创建所有任务
+	//CreateTask(&Task_AllData[Layer+2]);
+//	CreateTask(&Task_AllData[Layer+1]);
 	CreateTask(&Task_AllData[Layer]);
-	CreateTask(&Task_AllData[Layer+1]);
-	SuspendTask(&Task_AllData[Layer+1]);
+//	SuspendTask(&Task_AllData[Layer+1]);
+	//SuspendTask(&Task_AllData[Layer+2]);
 	while(1)
 	{
 		
@@ -35,14 +39,14 @@ void Task_Control(void)
 			//确认
 			if(Ment==Enter)
 			{
-				if(Layer<1)
+				if(Layer<2)
 				{
 					vTaskDelay(10);
-					SuspendTask(&Task_AllData[Layer]);
+					DelectTask(&Task_AllData[Layer]);
 					Layer++;
 					testDrawProcess(&u8g2);
 					vTaskDelay(10);
-					ResumeTask(&Task_AllData[Layer]);
+					CreateTask(&Task_AllData[Layer]);
 					Ment=None;
 				}
 			}
@@ -52,19 +56,17 @@ void Task_Control(void)
 				if(Layer>0)
 				{
 					vTaskDelay(10);
-					SuspendTask(&Task_AllData[Layer]);
+					DelectTask(&Task_AllData[Layer]);
 					Layer--;
 					testDrawProcess(&u8g2);
 					vTaskDelay(10);
-					ResumeTask(&Task_AllData[Layer]);
+					CreateTask(&Task_AllData[Layer]);
 					Ment=None;
 				}
 			}
 			
-				
-			
 		}
-		
+		Task_AllData[2].p_AllItem_Data=&AllItem_Data[i_pageAll];      //实时更新页面三里面的参数
 	}
 	
 }
@@ -74,11 +76,12 @@ void Task_Control(void)
 
 
 
+/*Operate Task*/
 void CreateTask(void* params)
 {
 	struct Task_Data* Temp_TaskData = params;
 	xTaskCreate(Temp_TaskData->func,Temp_TaskData->Name,128,
-					NULL,osPriorityNormal+1,Temp_TaskData->p_TaskHandle);
+					Temp_TaskData->p_AllItem_Data,osPriorityNormal+1,Temp_TaskData->p_TaskHandle);
 }
 
 void DelectTask(void* params)

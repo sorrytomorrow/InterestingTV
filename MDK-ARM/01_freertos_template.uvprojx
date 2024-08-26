@@ -1498,19 +1498,14 @@
               <FilePath>..\nwatch\MenuAll.c</FilePath>
             </File>
             <File>
-              <FileName>MenuAll.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\nwatch\MenuAll.h</FilePath>
-            </File>
-            <File>
-              <FileName>MenuDatas.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\nwatch\MenuDatas.c</FilePath>
-            </File>
-            <File>
               <FileName>TaskFun.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\nwatch\TaskFun.c</FilePath>
+            </File>
+            <File>
+              <FileName>Data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\nwatch\Data.h</FilePath>
             </File>
           </Files>
         </Group>

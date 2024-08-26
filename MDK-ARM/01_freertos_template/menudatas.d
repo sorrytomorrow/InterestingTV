@@ -19,6 +19,7 @@
 01_freertos_template\menudatas.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 01_freertos_template\menudatas.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 01_freertos_template\menudatas.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
+01_freertos_template\menudatas.o: ..\nwatch\Image.h
 01_freertos_template\menudatas.o: ..\u8g2\fun_u8g2.h
 01_freertos_template\menudatas.o: ../Core/Inc/main.h
 01_freertos_template\menudatas.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h

@@ -1,5 +1,5 @@
 01_freertos_template\menuall.o: ..\nwatch\MenuAll.c
-01_freertos_template\menuall.o: ..\nwatch\MenuAll.h
+01_freertos_template\menuall.o: ..\nwatch\Data.h
 01_freertos_template\menuall.o: ..\nwatch\typedefs.h
 01_freertos_template\menuall.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\stdbool.h
 01_freertos_template\menuall.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\stdint.h
@@ -19,6 +19,7 @@
 01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h
 01_freertos_template\menuall.o: ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h
+01_freertos_template\menuall.o: ..\nwatch\Image.h
 01_freertos_template\menuall.o: ..\u8g2\fun_u8g2.h
 01_freertos_template\menuall.o: ../Core/Inc/main.h
 01_freertos_template\menuall.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
@@ -60,5 +61,3 @@
 01_freertos_template\menuall.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\limits.h
 01_freertos_template\menuall.o: ..\u8g2\stm32_u8g2.h
 01_freertos_template\menuall.o: ../Drivers/DshanMCU-F103/driver_timer.h
-01_freertos_template\menuall.o: ..\nwatch\Image.h
-01_freertos_template\menuall.o: ../Drivers/DshanMCU-F103/driver_ir_receiver.h

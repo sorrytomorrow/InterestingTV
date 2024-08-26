@@ -1,32 +1,20 @@
-#include "MenuAll.h"
-#include "typedefs.h"
-#include "Image.h"
-
-
-
-#include "FreeRTOS.h"                   // ARM.FreeRTOS::RTOS:Core
-#include "task.h"                       // ARM.FreeRTOS::RTOS:Core
-#include "event_groups.h"               // ARM.FreeRTOS::RTOS:Event Groups
-#include "semphr.h"                     // ARM.FreeRTOS::RTOS:Core
-
-#include "driver_ir_receiver.h"
-
-
+#include "Data.h"
 
 u8g2_t u8g2;
-/*TimeData Set*/
-struct Time_Data TimeClock={22,0,0};
-/*index*/
-static int16_t index[][6] = {{8,17},{52,17},{96,17},{-36,17},{140,17}}; //选框的坐标 
-struct Image_Data AllImage_Data[]={{Clear_Big,""},{Light,"Light"},{Music,"Music"},
-									{Game,"Game"},{Set,"SetUp"},{Exit,"Exit"},{Clear_Big,""}};
 
-static QueueHandle_t g_xQueueMenu_IR;
 uint8_t Ment = None;
 uint8_t i_pageAll=1;
 
+/*index*/
+static int16_t index[][6] = {{8,17},{52,17},{96,17},{-36,17},{140,17}}; //选框的坐标
+
+struct Image_Data AllImage_Data[]={{Clear_Big,""},{Light,"Light"},{Music,"Music"},
+									{Game,"Game"},{Set,"SetUp"},{Exit,"Exit"},{Clear_Big,""}};
+
+
+									
 /*Start Menu*/
-void Start_Menu(void)
+void Start_Menu(void* params)
 {
 	
 	char Day_Str[]="Friday";
@@ -123,11 +111,10 @@ void UI_Arrow(void* params)
 
 
 
-void Second_Menu(void)
+void Second_Menu(void* params)
 {
 	/*Init*/
 	u8g2Init(&u8g2);
-	TypedefDataIR DataIR;
 	uint8_t i_page=1,j=0;
 	uint8_t width;       //得到下方字体的宽度动态变化方向键
 	bool Flag_R=true,Flag_L=true;
@@ -185,7 +172,7 @@ void Second_Menu(void)
 			if(i_page>=5)
 				i_page=5;
 			width = u8g2_GetStrWidth(&u8g2,AllImage_Data[i_page].Name);
-			
+			i_pageAll=i_page;
 			Ment=None;
 			
 		}
@@ -217,7 +204,7 @@ void Second_Menu(void)
 		}
 	
 		
-		i_pageAll=i_page;
+		
 		UI_Arrow(AllImage_Data[i_page].Name);
 		u8g2_DrawXBMP(&u8g2,35,52,16,8,Select_Left);   //下方
 		u8g2_DrawXBMP(&u8g2,52+width+1,52,16,8,Select_Right);
@@ -234,8 +221,52 @@ void Second_Menu(void)
 /*Third Menu*/
 void Third_Menu(void* params)
 {
-	
+	struct Item_Data* TempData = params;
+	uint8_t i;
+	uint8_t i_index=1;
+	uint8_t width;
+	u8g2Init(&u8g2);
+	u8g2_ClearBuffer(&u8g2);
 
+	while(1)
+	{
+		u8g2_SetFont(&u8g2,u8g2_font_t0_22b_mr );
+		u8g2_DrawStr(&u8g2,0,13,TempData->Name[0]);
+		u8g2_SetFont(&u8g2,u8g2_font_luBS08_tr);
+		for(i=1;i<TempData->Num;i++)
+		{
+			u8g2_DrawStr(&u8g2,0,16+i*10,TempData->Name[i]);
+		}
+		/*向下*/
+		if(Ment==Right)
+		{
+			if(i_index<3)
+			{
+				u8g2_DrawStr(&u8g2,2+width,16+i_index*10,"     ");
+				i_index++;
+			}
+				
+			Ment=None;
+		}
+		/*向上*/
+		else if(Ment==Left)
+		{
+			if(i_index>1)
+			{
+				u8g2_DrawStr(&u8g2,2+width,16+i_index*10,"     ");
+				i_index--;
+				
+			}
+				
+			Ment=None;
+		}
+		width = u8g2_GetStrWidth(&u8g2,TempData->Name[i_index]);
+		u8g2_DrawStr(&u8g2,2+width,16+i_index*10,"<----");
+		u8g2_SendBuffer(&u8g2);
+		vTaskDelay(150);
+	}
+	
+	
 }
 
 
