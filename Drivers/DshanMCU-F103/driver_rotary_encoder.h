@@ -69,7 +69,7 @@ void RotaryEncoder_Read(int32_t *pCnt, int32_t *pSpeed, int32_t *pKey);
 
 /*旋转编码器返回队列*/
 QueueHandle_t Get_QueueDriRotenHandle();
-
+void Clear_DriRotQueue(void);
 /**********************************************************************
  * 函数名称： RotaryEncoder_Test
  * 功能描述： 旋转编码器测试程序

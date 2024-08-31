@@ -136,6 +136,13 @@ void RegisterQueueHandle(QueueHandle_t queueHandle)
 		g_queue_cnt++;
 	}
 }
+//清除注册的队列
+void Clear_RegisterQueueHandle(void)
+{
+	g_xQueues[g_queue_cnt] = NULL;
+	g_queue_cnt--;
+}
+
 
 //分发数据
 static void DispatchKey(TypedefDataIR *pidata)

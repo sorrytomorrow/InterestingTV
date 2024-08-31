@@ -22,7 +22,7 @@
 #include "driver_rotary_encoder.h"
 #include "driver_ir_receiver.h"
 #include "driver_mpu6050.h"
-
+#include "Data.h"
 
 #define NOINVERT	false
 #define INVERT		true
@@ -73,16 +73,21 @@ static bool* blocks;
 static byte lives, lives_origin;
 static uint score;
 static byte platformX;
-
+static bool first = 1;
+static bool ifDelete=false;
 static uint32_t g_xres, g_yres, g_bpp;
 static uint8_t *g_framebuffer;
 static QueueHandle_t g_xQueuePlatform,g_xQueuePlatform_RT,g_xQueuePlatform_IR; /*挡球板队列(队列的句柄)*/
 static QueueHandle_t g_xQueuePlatform_MPU6;
 static QueueSetHandle_t g_QueueLine;
-//外部的变量
+
+/*任务句柄*/
+static TaskHandle_t xgame1PlatHandel;
+static TaskHandle_t xgame1WDataHandel;
+static TaskHandle_t xgame1AllInputHandel;
+//外部的任务句柄
 extern TaskHandle_t xgame1_TaskHandle;
-
-
+//任务句柄
 
 /* 挡球板任务 */
 static void platform_task(void *params)
@@ -97,6 +102,7 @@ static void platform_task(void *params)
     
     while (1)
     {
+		
         /* 读取platform中的数据 */
 		xQueueReceive(g_xQueuePlatform,&Data_Input,portMAX_DELAY);
 		
@@ -134,7 +140,9 @@ static void InputDataIR(void)
 	static int Last_data;
 	TypedefDataIR idata;
 	TypedefDataOT odata;
+	//xSemaphoreTake(g_xIRMutex,portMAX_DELAY);
 	xQueueReceive(g_xQueuePlatform_IR,&idata,0);
+	//xSemaphoreGive(g_xIRMutex);
 	/*判断向左*/
 	if(idata.data==0xe0)
 	{
@@ -148,6 +156,14 @@ static void InputDataIR(void)
 	{
 		odata.data = Last_data;
 	}
+	else if(idata.data==0xc2)
+	{
+		xTaskNotifyGive(xgame1_TaskHandle);
+		vTaskDelay(50);
+		vTaskDelete(xgame1PlatHandel);
+		vQueueDelete(g_xQueuePlatform);
+		vTaskDelete(NULL);
+	}
 	else
 	{
 		odata.data=0;
@@ -160,17 +176,17 @@ static void InputDataIR(void)
 static void InputDataRot(void)
 {
 	uint8_t cnt,i;
-	uint8_t Right;
+	uint8_t Right1;
 	TypedefDataRT idata;
 	TypedefDataOT odata;
 	xQueueReceive(g_xQueuePlatform_RT,&idata,0);
 	if(idata.Speed>0)
 	{
-		Right=1;
+		Right1=1;
 	}
 	else
 	{
-		Right=0;
+		Right1=0;
 		idata.Speed = 0-idata.Speed;
 	}
 	if(idata.Speed>120)
@@ -183,7 +199,7 @@ static void InputDataRot(void)
 	}
 	else{cnt=1;}
 	
-	odata.data = Right?UPT_MOVE_LEFT:UPT_MOVE_RIGHT;
+	odata.data = Right1?UPT_MOVE_LEFT:UPT_MOVE_RIGHT;
 	for(i=0;i<cnt;i++)
 	{
 		xQueueSend(g_xQueuePlatform,&odata,0);  //
@@ -230,6 +246,7 @@ static void InputDataInPlatform(void *params)
 	QueueHandle_t g_TempQueueLine;
 	while(1)
 	{
+		
 		g_TempQueueLine=xQueueSelectFromSet(g_QueueLine,portMAX_DELAY);
 		if(g_TempQueueLine)
 		{
@@ -252,28 +269,35 @@ static void InputDataInPlatform(void *params)
 
 }
 
+
+
+
+
+
 /*整体游戏*/
 void game1_task(void *params)
 {		
     uint8_t dev, data, last_data;
-    
+	
     g_framebuffer = LCD_GetFrameBuffer(&g_xres, &g_yres, &g_bpp);
     draw_init();
     draw_end();
-    
+    RotaryEncoder_Init();
+	first=1; 						//归一
+	
 	/*创建队列,从红外传感器中读取数据*//*消费者*/
 	g_xQueuePlatform = xQueueCreate(15,sizeof(TypedefDataOT));
 	
 	g_xQueuePlatform_IR = xQueueCreate(15,sizeof(TypedefDataIR));
 	RegisterQueueHandle(g_xQueuePlatform_IR);
 	g_xQueuePlatform_RT = Get_QueueDriRotenHandle();
-	g_xQueuePlatform_MPU6 = Get_QueueMpu6Handle();
+	//g_xQueuePlatform_MPU6 = Get_QueueMpu6Handle();
 	
 	/*创建队列集*//*把任务加入到队列集里面去*/
-	g_QueueLine=xQueueCreateSet(45);
+	g_QueueLine=xQueueCreateSet(30);
 	xQueueAddToSet(g_xQueuePlatform_IR,g_QueueLine);
 	xQueueAddToSet(g_xQueuePlatform_RT,g_QueueLine);
-	xQueueAddToSet(g_xQueuePlatform_MPU6,g_QueueLine);
+	//xQueueAddToSet(g_xQueuePlatform_MPU6,g_QueueLine);
 	
 	uptMove = UPT_MOVE_NONE;
 
@@ -291,14 +315,30 @@ void game1_task(void *params)
 	lives = lives_origin = 3;
 	score = 0;
 	platformX = (g_xres / 2) - (PLATFORM_WIDTH / 2);
-	
-	xTaskCreate(WDataTQueFromMpu,"WDataTQueFromMpuTask",128,NULL,osPriorityNormal,NULL);/*MPU6050写入数据*/
-	xTaskCreate(InputDataInPlatform, "InputTask", 128, NULL, osPriorityNormal, NULL);
-    xTaskCreate(platform_task, "platform_task", 128, NULL, osPriorityNormal, NULL);
+	xSemaphoreTake(g_xIRMutex,0);     //上锁
+	//xTaskCreate(WDataTQueFromMpu,"WDataTQueFromMpuTask",128,NULL,osPriorityNormal+1,&xgame1WDataHandel);/*MPU6050写入数据*/
+	xTaskCreate(InputDataInPlatform, "InputTask", 60, NULL, osPriorityNormal+1,&xgame1AllInputHandel);
+    xTaskCreate(platform_task, "platform_task", 80, NULL, osPriorityNormal+1, &xgame1PlatHandel);
 
     while (1)
     {
-		   
+		if(ulTaskNotifyTake(pdTRUE,0))
+		{
+			//释放资源
+			draw_bitmap(0,0, clearALL, 128,64, NOINVERT, 0);
+			draw_flushArea(0,0,128,64);
+			Clear_RegisterQueueHandle();
+			vPortFree(blocks);
+			blocks=NULL;                             
+			vQueueDelete(g_xQueuePlatform_RT);		  
+			vQueueDelete(g_xQueuePlatform_IR);
+			vQueueDelete(g_QueueLine);
+			testDrawProcess(&u8g2);
+			xTaskNotifyGive(xTask_ControlHandle);    //通知任务控制任务
+			xSemaphoreGive(g_xIRMutex);//释放锁
+			vTaskDelete(NULL);
+		}
+		
         game1_draw();
 		btnExit();
         //draw_end();
@@ -316,9 +356,21 @@ static bool btnExit()
 //	}
 	if(lives == 255)
 	{
-		//pwrmgr_setState(PWR_ACTIVE_DISPLAY, PWR_STATE_NONE);	
-		//animation_start(display_load, ANIM_MOVE_OFF);
+		vTaskDelay(50);
+		//释放资源
+		draw_bitmap(0,0, clearALL, 128,64, NOINVERT, 0);
+		draw_flushArea(0,0,128,64);
+		Clear_RegisterQueueHandle();
 		vPortFree(blocks);
+		blocks=NULL;                             
+		vQueueDelete(g_xQueuePlatform_RT);		  
+		vQueueDelete(g_xQueuePlatform_IR);
+		vQueueDelete(g_QueueLine);
+		testDrawProcess(&u8g2);
+		xTaskNotifyGive(xTask_ControlHandle);    //通知任务控制任务
+		xSemaphoreGive(g_xIRMutex);//释放锁
+		vTaskDelete(xgame1AllInputHandel);
+		vTaskDelete(xgame1PlatHandel);
 		vTaskDelete(NULL);
 	}
 	return true;
@@ -336,14 +388,14 @@ static bool btnLeft()
 	return false;
 }
 
-void game1_draw()
+void game1_draw(void)
 {
 	bool gameEnded = ((score >= BLOCK_COUNT) || (lives == 255));
 
 	byte platformXtmp = platformX;
-
-    static bool first = 1;
-
+	
+    
+	byte x,y,i;
 	// Move ball
 	// hide ball
 	draw_bitmap(ball.x, ball.y, clearImg, 2, 2, NOINVERT, 0);

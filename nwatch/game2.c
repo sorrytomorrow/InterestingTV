@@ -15,6 +15,7 @@
 #include "driver_lcd.h"
 #include "driver_rotary_encoder.h"
 #include "driver_ir_receiver.h"
+#include "data.h"
 
 /*球的图形*/
 static const byte ballImg[] ={
@@ -44,6 +45,13 @@ static QueueSetHandle_t  g_xQueueLists;
 static byte uptMove1,uptMove2;
 static byte lives_0,lives_1, lives_origin; /*生命变量*/
 void game2_draw();
+
+/*任务句柄*/
+static TaskHandle_t xgame2PlatHandel1;
+static TaskHandle_t xgame2PlatHandel2;
+/*extern*/
+extern TaskHandle_t xgame2_TaskHandle;
+
 typedef struct platform{
 	byte x;
 	byte y;
@@ -81,6 +89,8 @@ void platform1_task(void* params)
 	
 	while(1)
 	{
+		if(ulTaskNotifyTake(pdTRUE,0))
+			vTaskDelete(NULL);
 		xQueueReceive(g_xQueuePlatform1,&idata,portMAX_DELAY);
 		uptMove1=idata.data;   
 		// Hide platform
@@ -119,6 +129,8 @@ void platform2_task(void* params)
 	
 	while(1)
 	{
+		if(ulTaskNotifyTake(pdTRUE,0))
+			vTaskDelete(NULL);
 		xQueueReceive(g_xQueuePlatform2,&idata,portMAX_DELAY);
 		uptMove1=idata.data;   
 		// Hide platform
@@ -169,6 +181,12 @@ static void InputDataIR(void)
 	{
 		odata.data = Last_data;
 	}
+	else if(idata.data==0xc2)
+	{
+		xTaskNotifyGive(xgame2PlatHandel1);
+		xTaskNotifyGive(xgame2PlatHandel2);
+		xTaskNotifyGive(xgame2_TaskHandle);
+	}
 	else
 	{
 		odata.data=0;
@@ -181,17 +199,17 @@ static void InputDataIR(void)
 static void InputDataRot(void)
 {
 	uint8_t cnt,i;
-	uint8_t Right;
+	uint8_t Right1;
 	TypedefDataRT idata;
 	TypedefDataOT odata;
 	xQueueReceive(g_xQueuePlatform_RT,&idata,0);
 	if(idata.Speed>0)
 	{
-		Right=1;
+		Right1=1;
 	}
 	else
 	{
-		Right=0;
+		Right1=0;
 		idata.Speed = 0-idata.Speed;
 	}
 	if(idata.Speed>120)
@@ -204,7 +222,7 @@ static void InputDataRot(void)
 	}
 	else{cnt=1;}
 	
-	odata.data = Right?UPT_MOVE_LEFT:UPT_MOVE_RIGHT;
+	odata.data = Right1?UPT_MOVE_LEFT:UPT_MOVE_RIGHT;
 	for(i=0;i<cnt;i++)
 	{
 		xQueueSend(g_xQueuePlatform2,&odata,0);  //
@@ -250,6 +268,8 @@ static void InputDataInPlatform(void *params)
 	QueueHandle_t g_TempQueueLine;
 	while(1)
 	{
+		if(ulTaskNotifyTake(pdTRUE,0))
+			vTaskDelete(NULL);
 		g_TempQueueLine=xQueueSelectFromSet(g_xQueueLists,portMAX_DELAY);
 		if(g_TempQueueLine)
 		{
@@ -301,11 +321,11 @@ void game2_task(void* params)
 	xQueueAddToSet(g_xQueuePlatform2_IR,g_xQueueLists);
 	xQueueAddToSet(g_xQueuePlatform_RT,g_xQueueLists);
 	
-	
+	xSemaphoreTake(g_xIRMutex,0);     //上锁
 	/*创建任务*/
-	xTaskCreate(InputDataInPlatform,"InputDatatask",128,NULL,osPriorityNormal,NULL);
-	xTaskCreate(platform1_task,"platform_task1",128,&platform1,osPriorityNormal,NULL);
-	xTaskCreate(platform2_task,"platform_task2",128,&platform2,osPriorityNormal,NULL);
+	xTaskCreate(InputDataInPlatform,"InputDatatask",128,NULL,osPriorityNormal+1,NULL);
+	xTaskCreate(platform1_task,"platform_task1",128,&platform1,osPriorityNormal+1,xgame2PlatHandel1);
+	xTaskCreate(platform2_task,"platform_task2",128,&platform2,osPriorityNormal+1,xgame2PlatHandel2);
 	
 	/*初始化球*/
 	ball.x = g_xres / 2;
@@ -315,9 +335,20 @@ void game2_task(void* params)
 	
 	lives_0 = lives_origin = 5;    //begin live
 	lives_1 = 5;				   //begin live	
+	
 	while(1)
 	{
 		game2_draw();
+		if(ulTaskNotifyTake(pdTRUE,0))
+		{
+			draw_bitmap(0,0, clearALL, 128,64, NOINVERT, 0);
+			draw_flushArea(0,0,128,64);
+			Clear_RegisterQueueHandle();
+			testDrawProcess(&u8g2);
+			xTaskNotifyGive(xTask_ControlHandle);    //通知任务控制任务
+			xSemaphoreGive(g_xIRMutex);//释放锁
+			vTaskDelete(NULL);
+		}
 		btnExit();
 		vTaskDelay(50);
 	}
@@ -328,13 +359,13 @@ void game2_task(void* params)
 
 
 
-void game2_draw()
+void game2_draw(void* params)
 {
 	bool gameEnded = (lives_0 == 255 || lives_1 == 255);
 
 	byte platformXtmp_1 = platform1.x;
 	byte platformXtmp_2 = platform2.x;
-
+	byte i;
     static bool first = 1;
 
 	// Move ball

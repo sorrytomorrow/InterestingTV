@@ -51,9 +51,3 @@
 01_freertos_template\main.o: ../Core/Inc/usart.h
 01_freertos_template\main.o: ../Core/Inc/usb.h
 01_freertos_template\main.o: ../Core/Inc/gpio.h
-01_freertos_template\main.o: ..\u8g2\fun_u8g2.h
-01_freertos_template\main.o: ..\u8g2\u8g2.h
-01_freertos_template\main.o: ..\u8g2\u8x8.h
-01_freertos_template\main.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\stdarg.h
-01_freertos_template\main.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\limits.h
-01_freertos_template\main.o: ..\u8g2\stm32_u8g2.h

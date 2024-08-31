@@ -14,3 +14,4 @@
 01_freertos_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
 01_freertos_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
 01_freertos_template\tasks.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/stack_macros.h
+01_freertos_template\tasks.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\stdio.h

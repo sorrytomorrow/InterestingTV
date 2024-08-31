@@ -19,6 +19,7 @@
 #include "driver_key.h"
 #include "driver_uart.h"
 
+#include "data.h"
 /**
   ******************************************************************************
   * File Name          : freertos.c
@@ -43,12 +44,6 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "semphr.h"
-//队列的函数
-#include "queue.h"
-//自定义数据导入
-#include "typedefs.h"
-
-
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -78,18 +73,16 @@ static BaseType_t ret;
 
 /*TaskHandle*/
 static TaskHandle_t xSoundTaskHandle=NULL;
-
+TaskHandle_t xTask_ControlHandle=NULL;
 
 /*QueueHandle*/
 QueueHandle_t g_xQueuePlayMusic;
-
+static SemaphoreHandle_t g_xI2cMutex; //信号量句柄
 /*extern task*/
 
 
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
-static SemaphoreHandle_t g_xI2cMutex; //信号量句柄
-
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
@@ -108,6 +101,7 @@ void ReleaseI2cMutex(void)
 	xSemaphoreGive(g_xI2cMutex);
 }
 
+
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void *argument);
@@ -120,21 +114,16 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   * @retval None
   */
 void MX_FREERTOS_Init(void) {
-	
-	LCD_Init();
-	RotaryEncoder_Init();
-	//LCD_Clear();
-	IRReceiver_Init();
-	MPU6050_Init();
-	/*创建I2c的互斥锁*/
-	g_xI2cMutex=xSemaphoreCreateMutex();
-	
-	
-	//LCD_PrintString(0, 0, "Starting");
   /* USER CODE BEGIN Init */
 	
   /* USER CODE END Init */
-
+	LCD_Init();
+	LCD_Clear();
+  
+	MPU6050_Init();
+	IRReceiver_Init();
+	RotaryEncoder_Init();
+	g_xI2cMutex=xSemaphoreCreateMutex();
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -152,31 +141,28 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of defaultTask *//*默认任务*/
+  /* creation of defaultTask */
   //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
-  /* USER CODE BEGIN RTOS_THREADS *//*创建RTOS任务线程
+  /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   
 //  extern void Start_Menu(void);
 //  xTaskCreate(Start_Menu,"Start_Menu_Task",128, NULL, osPriorityNormal,NULL);
 
   extern void Task_Control(void);
-  xTaskCreate(Task_Control,"Task_Control",128, NULL, osPriorityNormal,NULL);
-
-
-
-//	struct Item_Data{
-//	const char** Name;     //对指针的地址进解指针操作,得到这个指针里面存储的字符串的地址
-//	uint8_t Num;
-//	};
-//	extern struct Item_Data AllItem_Data[];
+  xTaskCreate(Task_Control,"Task_Control",128, NULL, osPriorityNormal,&xTask_ControlHandle);
+	
 //	extern void Third_Menu(void* params);
-//	xTaskCreate(Third_Menu,"Task_Control",128,&AllItem_Data[0], osPriorityNormal,NULL);
+//	xTaskCreate(Third_Menu,"Start_Menu_Task",128, &AllItem_Data[1], osPriorityNormal,NULL);
+
+
+//extern void game1_task(void *params);
+	
   //xTaskCreate(MenuTask,"menutask",128, NULL, osPriorityNormal,NULL);
-  //extern void game2_task(void);
-//  xTaskCreate(game1_task,"PlayGame",128, NULL, osPriorityNormal,NULL);
-  //xTaskCreate(game2_task,"PlayGame2",128, NULL, osPriorityNormal,NULL);
+   //extern void game2_task(void);
+  //xTaskCreate(game1_task,"PlayGame",128, NULL, osPriorityNormal,NULL);
+   //xTaskCreate(game2_task,"PlayGame2",128, NULL, osPriorityNormal,NULL);
   //xTaskCreate(PlayMusic,"PlayMusic",128, NULL, osPriorityNormal,NULL);
   //xTaskCreate(IR_Contorl_Menu_task,"IRContorMenuTask",128, NULL, osPriorityNormal+1,NULL);
   //text

@@ -67,6 +67,7 @@ extern const byte select_clear[];
 extern const byte menu_right[];
 extern const byte menu_left[];
 extern const byte menu_Platform[];
+extern const byte clearALL[128*8] PROGMEM;
 // Alarm icon
 //extern const byte smallFontAlarm[];
 

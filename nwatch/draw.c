@@ -185,6 +185,7 @@ void draw_bitmap(byte x, byte yy, const byte* bitmap, byte w, byte h, bool inver
 // PS - Sorry about the poorly named variables ;_;
 void draw_bitmap(byte x, byte yy, const byte* bitmap, byte w, byte h, bool invert, byte offsetY)
 {
+	 byte ww,hh;
 	// Apply animation offset
 	yy += animation_offsetY();
 

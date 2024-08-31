@@ -39,7 +39,7 @@
 
 #include "FreeRTOS.h"
 #include "queue.h"
-
+#include "event_groups.h"   
 //****************************************
 // 定义MPU6050内部地址
 //****************************************
@@ -246,6 +246,12 @@ void WDataTQueFromMpu(void)
 	int err = 0;
 	while(1)
 	{
+//		if(ulTaskNotifyTake(pdTRUE,0))
+//		{
+//			xTaskNotifyGive(xgame1_TaskHandle);
+//			vTaskDelete(NULL);
+//		}
+//			
 		GetI2cMutex();
 		err |= MPU6050_ReadRegister(MPU6050_ACCEL_XOUT_H, &datah);
 		err |= MPU6050_ReadRegister(MPU6050_ACCEL_XOUT_L, &datal);

@@ -82,6 +82,8 @@ const char *IRReceiver_CodeToString(uint8_t code);
 
 /*返回红外的注册队列函数*/
 void RegisterQueueHandle(QueueHandle_t queueHandle);
+/*清除注册的队列按照顺序*/
+void Clear_RegisterQueueHandle(void);
 /**********************************************************************
  * 函数名称： IRReceiver_Test
  * 功能描述： 红外接收器测试程序

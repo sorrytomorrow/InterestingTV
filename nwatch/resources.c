@@ -768,5 +768,5 @@ const byte menu_Platform[] PROGMEM={
 
 };
 
-
+const byte clearALL[128*8] PROGMEM={0};
 

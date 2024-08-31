@@ -1,6 +1,10 @@
 #ifndef __MenuAll_H__
 #define __MenuAll_H__
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "typedefs.h"
 #include "FreeRTOS.h"                   // ARM.FreeRTOS::RTOS:Core
 #include "task.h"                       // ARM.FreeRTOS::RTOS:Core
@@ -36,6 +40,7 @@ struct Time_Data{
 struct Item_Data{
 	const char** Name;     //对指针的地址进解指针操作,得到这个指针里面存储的字符串的地址
 	uint8_t Num;
+	struct Task_Data* p_FunData;  
 };
 
 struct Task_Data{
@@ -43,17 +48,22 @@ struct Task_Data{
 	void (*func)(void* params);
 	TaskHandle_t*  p_TaskHandle;
 	struct Item_Data* p_AllItem_Data;
+	uint32_t Word;
 };
 
 
 /*extern variable*/
 extern u8g2_t u8g2;
 extern uint8_t Ment;
-extern SemaphoreHandle_t g_xIRBinary;
+extern uint8_t Layer;
+extern SemaphoreHandle_t g_xIRMutex;
 extern uint8_t i_pageAll;
-extern struct Item_Data AllItem_Data[];
+extern uint8_t i_indexAll;
 extern struct Time_Data TimeClock;
 extern const char* GameData[];
+extern struct Item_Data AllItem_Data[];
+extern struct Task_Data Task_AllData[];
+extern TaskHandle_t xTask_ControlHandle;
 //函数声明
 void Start_Menu(void* params);
 void Second_Menu(void* params);
@@ -63,4 +73,11 @@ void DelectTask(void* params);
 void SuspendTask(void* params);
 void ResumeTask(void* params);
 void Anal_IRData(void* params);
+
+
+
+
+
+
+
 #endif

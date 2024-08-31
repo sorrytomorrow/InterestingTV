@@ -3,8 +3,7 @@
 u8g2_t u8g2;
 
 uint8_t Ment = None;
-uint8_t i_pageAll=1;
-
+uint8_t i_pageAll=1;   
 /*index*/
 static int16_t index[][6] = {{8,17},{52,17},{96,17},{-36,17},{140,17}}; //选框的坐标
 
@@ -20,12 +19,11 @@ void Start_Menu(void* params)
 	char Day_Str[]="Friday";
 	char Month_Str[]="2024/10/29";
 	char buffer[11];
-	BaseType_t preTime;
-	u8g2Init(&u8g2);
+	UBaseType_t freeNum;
 	
+
 	while(1)
 	{
-		
 		
 		u8g2_ClearBuffer(&u8g2);
 		/*Draw iamge*/
@@ -114,23 +112,26 @@ void UI_Arrow(void* params)
 void Second_Menu(void* params)
 {
 	/*Init*/
-	u8g2Init(&u8g2);
+	
 	uint8_t i_page=1,j=0;
 	uint8_t width;       //得到下方字体的宽度动态变化方向键
 	bool Flag_R=true,Flag_L=true;
+	
+	
 	u8g2_ClearBuffer(&u8g2);
 	
 	//下方字体箭头包围(先写上第一张图的名字,不然得不到width)
 	u8g2_SetFont(&u8g2,u8g2_font_ncenB08_tf);
-	u8g2_DrawStr(&u8g2,52,60,AllImage_Data[i_page].Name);
+	u8g2_DrawStr(&u8g2,52,60,AllImage_Data[i_pageAll].Name);
 	
-	width = u8g2_GetStrWidth(&u8g2,AllImage_Data[i_page].Name);
+	width = u8g2_GetStrWidth(&u8g2,AllImage_Data[i_pageAll].Name);
 	u8g2_DrawXBMP(&u8g2,35,52,16,8,Select_Left);   //下方
 	u8g2_DrawXBMP(&u8g2,52+width+1,52,16,8,Select_Right);
-	
+	i_page=i_pageAll;      //使回退到任务后还在原先的位置;
 	while(1)
 	{
 
+		
 		/*Draw Picture*/
 		
 		u8g2_DrawXBMP(&u8g2,index[0][0],index[0][1],25,30,AllImage_Data[i_page-1].Image);
@@ -172,7 +173,6 @@ void Second_Menu(void* params)
 			if(i_page>=5)
 				i_page=5;
 			width = u8g2_GetStrWidth(&u8g2,AllImage_Data[i_page].Name);
-			i_pageAll=i_page;
 			Ment=None;
 			
 		}
@@ -208,7 +208,7 @@ void Second_Menu(void* params)
 		UI_Arrow(AllImage_Data[i_page].Name);
 		u8g2_DrawXBMP(&u8g2,35,52,16,8,Select_Left);   //下方
 		u8g2_DrawXBMP(&u8g2,52+width+1,52,16,8,Select_Right);
-		
+		i_pageAll=i_page;
 		u8g2_SendBuffer(&u8g2);
 		vTaskDelay(150);
 	}
@@ -222,14 +222,16 @@ void Second_Menu(void* params)
 void Third_Menu(void* params)
 {
 	struct Item_Data* TempData = params;
+	
 	uint8_t i;
 	uint8_t i_index=1;
 	uint8_t width;
-	u8g2Init(&u8g2);
+	
 	u8g2_ClearBuffer(&u8g2);
 
 	while(1)
 	{
+		
 		u8g2_SetFont(&u8g2,u8g2_font_t0_22b_mr );
 		u8g2_DrawStr(&u8g2,0,13,TempData->Name[0]);
 		u8g2_SetFont(&u8g2,u8g2_font_luBS08_tr);
@@ -237,12 +239,16 @@ void Third_Menu(void* params)
 		{
 			u8g2_DrawStr(&u8g2,0,16+i*10,TempData->Name[i]);
 		}
+		xSemaphoreTake(g_xIRMutex,portMAX_DELAY);
+		
 		/*向下*/
 		if(Ment==Right)
 		{
-			if(i_index<3)
+			if(i_index<TempData->Num-1)
 			{
-				u8g2_DrawStr(&u8g2,2+width,16+i_index*10,"     ");
+				width = u8g2_GetStrWidth(&u8g2,TempData->Name[i_index]);
+				u8g2_SetDrawColor(&u8g2, 0);
+				u8g2_DrawBox(&u8g2,2+width,6+i_index*10,30,10); 
 				i_index++;
 			}
 				
@@ -253,14 +259,30 @@ void Third_Menu(void* params)
 		{
 			if(i_index>1)
 			{
-				u8g2_DrawStr(&u8g2,2+width,16+i_index*10,"     ");
+				width = u8g2_GetStrWidth(&u8g2,TempData->Name[i_index]);
+				u8g2_SetDrawColor(&u8g2, 0);
+				u8g2_DrawBox(&u8g2,2+width,6+i_index*10,30,10); 
 				i_index--;
 				
 			}
 				
 			Ment=None;
 		}
+		
+		/*确认*/
+		else if(Ment==Enter)
+		{
+			Ment=None;
+			u8g2_ClearBuffer(&u8g2);
+			CreateTask(&TempData->p_FunData[i_index]);
+			xSemaphoreGive(g_xIRMutex);  
+			vTaskDelete(NULL);
+		}
+		xSemaphoreGive(g_xIRMutex);        
+		
+		
 		width = u8g2_GetStrWidth(&u8g2,TempData->Name[i_index]);
+		u8g2_SetDrawColor(&u8g2, 1);
 		u8g2_DrawStr(&u8g2,2+width,16+i_index*10,"<----");
 		u8g2_SendBuffer(&u8g2);
 		vTaskDelay(150);

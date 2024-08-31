@@ -22,33 +22,53 @@ Dialog DLL:      TCM.DLL V1.46.0.0
  
 <h2>Project:</h2>
 D:\SingleChip\DShanMCU-F103\Study\MyProject\01_freertos_template\MDK-ARM\01_freertos_template.uvprojx
-Project File Date:  08/26/2024
+Project File Date:  08/31/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\SingleChip\keil5_532\ARM\ARMCC\Bin'
 Build target '01_freertos_template'
-compiling MenuAll.c...
-..\nwatch\Image.h(26): warning:  #1-D: last line of file ends without a newline
+compiling game1.c...
+../Drivers/DshanMCU-F103/driver_rotary_encoder.h(71): warning:  #1295-D: Deprecated declaration Get_QueueDriRotenHandle - give arg types
+  QueueHandle_t Get_QueueDriRotenHandle();
+..\nwatch\Image.h(27): warning:  #1-D: last line of file ends without a newline
   #endif
-..\u8g2\fun_u8g2.h(8): warning:  #1-D: last line of file ends without a newline
+../u8g2/fun_u8g2.h(8): warning:  #1-D: last line of file ends without a newline
   #endif
-..\u8g2\stm32_u8g2.h(28): warning:  #1-D: last line of file ends without a newline
+../u8g2/stm32_u8g2.h(28): warning:  #1-D: last line of file ends without a newline
   #endif
-..\nwatch\Data.h(66): warning:  #1-D: last line of file ends without a newline
+..\nwatch\Data.h(83): warning:  #1-D: last line of file ends without a newline
   #endif
-..\nwatch\MenuAll.c(60): warning:  #223-D: function "sprintf" declared implicitly
-  		sprintf(buffer,"%02d:%02d:%02d",TimeClock.Hour,TimeClock.Minute,TimeClock.Second);  //传递变量（十进制（占四格））
-..\nwatch\MenuAll.c(23): warning:  #177-D: variable "preTime"  was declared but never referenced
-  	BaseType_t preTime;
-..\nwatch\MenuAll.c(120): warning:  #177-D: variable "Flag_R"  was declared but never referenced
-  	bool Flag_R=true,Flag_L=true;
-..\nwatch\MenuAll.c(120): warning:  #177-D: variable "Flag_L"  was declared but never referenced
-  	bool Flag_R=true,Flag_L=true;
-..\nwatch\MenuAll.c: 8 warnings, 0 errors
+..\nwatch\game1.c(96): warning:  #177-D: variable "dev"  was declared but never referenced
+      uint8_t dev, data, last_data;
+..\nwatch\game1.c(96): warning:  #177-D: variable "data"  was declared but never referenced
+      uint8_t dev, data, last_data;
+..\nwatch\game1.c(96): warning:  #177-D: variable "last_data"  was declared but never referenced
+      uint8_t dev, data, last_data;
+..\nwatch\game1.c(98): warning:  #177-D: variable "Statue"  was declared but never referenced
+  	uint8_t Statue=0;
+..\nwatch\game1.c(280): warning:  #177-D: variable "dev"  was declared but never referenced
+      uint8_t dev, data, last_data;
+..\nwatch\game1.c(280): warning:  #177-D: variable "data"  was declared but never referenced
+      uint8_t dev, data, last_data;
+..\nwatch\game1.c(280): warning:  #177-D: variable "last_data"  was declared but never referenced
+      uint8_t dev, data, last_data;
+..\nwatch\game1.c(395): warning:  #177-D: variable "platformXtmp"  was declared but never referenced
+  	byte platformXtmp = platformX;
+..\nwatch\game1.c(379): warning:  #177-D: function "btnRight"  was declared but never referenced
+  static bool btnRight()
+..\nwatch\game1.c(385): warning:  #177-D: function "btnLeft"  was declared but never referenced
+  static bool btnLeft()
+..\nwatch\game1.c(77): warning:  #177-D: variable "ifDelete"  was declared but never referenced
+  static bool ifDelete=false;
+..\nwatch\game1.c(79): warning:  #550-D: variable "g_framebuffer"  was set but never used
+  static uint8_t *g_framebuffer;
+..\nwatch\game1.c(86): warning:  #177-D: variable "xgame1WDataHandel"  was declared but never referenced
+  static TaskHandle_t xgame1WDataHandel;
+..\nwatch\game1.c: 18 warnings, 0 errors
 linking...
-Program Size: Code=26412 RO-data=20504 RW-data=492 ZI-data=15660  
+Program Size: Code=35136 RO-data=22148 RW-data=776 ZI-data=17432  
 FromELF: creating hex file...
-"01_freertos_template\01_freertos_template.axf" - 0 Error(s), 8 Warning(s).
+"01_freertos_template\01_freertos_template.axf" - 0 Error(s), 18 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -72,7 +92,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.4.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

@@ -27,8 +27,6 @@
 #include "usb.h"
 #include "gpio.h"
 
-#include "fun_u8g2.h"
-#include "stm32_u8g2.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -50,7 +48,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-extern struct Time_Data TimeClock;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -103,9 +101,6 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_USART1_UART_Init();
-  
-  
-  //draw_music_icon(&u8g2);
   /* USER CODE BEGIN 2 */
   //testDrawProcess(&u8g2);
   
@@ -113,17 +108,17 @@ int main(void)
 
   /* Init scheduler */
   osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();    /*创建任务*/
+  MX_FREERTOS_Init();
 
   /* Start scheduler */
-  osKernelStart();		/*启动调度器*/
+  osKernelStart();
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-	
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

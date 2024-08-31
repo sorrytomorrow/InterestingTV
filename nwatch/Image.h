@@ -23,4 +23,5 @@ extern const unsigned char Clear_Big[128*4];
 extern const unsigned char Clear_Word[80*2];
 extern const unsigned char Select_Right[];
 extern const unsigned char Select_Left[];
+
 #endif

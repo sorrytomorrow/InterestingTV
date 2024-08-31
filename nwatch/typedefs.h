@@ -34,7 +34,7 @@ typedef struct Data_OT{
 
 
 // Quick and easy macro for a for loop
-#define LOOP(count, var) for(byte var=0;var<count;var++)
+#define LOOP(count, var) for(var=0;var<count;var++)
 
 
 

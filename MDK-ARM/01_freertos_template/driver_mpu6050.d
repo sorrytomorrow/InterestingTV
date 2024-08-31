@@ -46,3 +46,7 @@
 01_freertos_template\driver_mpu6050.o: ..\Drivers\DshanMCU-F103\driver_lcd.h
 01_freertos_template\driver_mpu6050.o: ..\Drivers\DshanMCU-F103\driver_timer.h
 01_freertos_template\driver_mpu6050.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\math.h
+01_freertos_template\driver_mpu6050.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
+01_freertos_template\driver_mpu6050.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h
+01_freertos_template\driver_mpu6050.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+01_freertos_template\driver_mpu6050.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
