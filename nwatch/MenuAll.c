@@ -274,8 +274,8 @@ void Third_Menu(void* params)
 		{
 			Ment=None;
 			u8g2_ClearBuffer(&u8g2);
+			xSemaphoreGive(g_xIRMutex); 
 			CreateTask(&TempData->p_FunData[i_index]);
-			xSemaphoreGive(g_xIRMutex);  
 			vTaskDelete(NULL);
 		}
 		xSemaphoreGive(g_xIRMutex);        

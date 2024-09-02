@@ -14,6 +14,7 @@
 01_freertos_template\draw.o: ..\nwatch\draw.h
 01_freertos_template\draw.o: ..\nwatch\typedefs.h
 01_freertos_template\draw.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\stdbool.h
+01_freertos_template\draw.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\stdlib.h
 01_freertos_template\draw.o: ..\nwatch\resources.h
 01_freertos_template\draw.o: ..\nwatch\english.h
 01_freertos_template\draw.o: ../Drivers/DshanMCU-F103/driver_lcd.h

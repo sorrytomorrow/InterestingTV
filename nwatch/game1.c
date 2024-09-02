@@ -24,9 +24,6 @@
 #include "driver_mpu6050.h"
 #include "Data.h"
 
-#define NOINVERT	false
-#define INVERT		true
-
 #define sprintf_P  sprintf
 #define PSTR(a)  a
 
@@ -87,8 +84,8 @@ static TaskHandle_t xgame1WDataHandel;
 static TaskHandle_t xgame1AllInputHandel;
 //外部的任务句柄
 extern TaskHandle_t xgame1_TaskHandle;
-//任务句柄
 
+void Rel_resources1(void);
 /* 挡球板任务 */
 static void platform_task(void *params)
 {
@@ -327,12 +324,7 @@ void game1_task(void *params)
 			//释放资源
 			draw_bitmap(0,0, clearALL, 128,64, NOINVERT, 0);
 			draw_flushArea(0,0,128,64);
-			Clear_RegisterQueueHandle();
-			vPortFree(blocks);
-			blocks=NULL;                             
-			vQueueDelete(g_xQueuePlatform_RT);		  
-			vQueueDelete(g_xQueuePlatform_IR);
-			vQueueDelete(g_QueueLine);
+			Rel_resources1();
 			testDrawProcess(&u8g2);
 			xTaskNotifyGive(xTask_ControlHandle);    //通知任务控制任务
 			xSemaphoreGive(g_xIRMutex);//释放锁
@@ -356,16 +348,11 @@ static bool btnExit()
 //	}
 	if(lives == 255)
 	{
-		vTaskDelay(50);
+		vTaskDelay(2000);
 		//释放资源
 		draw_bitmap(0,0, clearALL, 128,64, NOINVERT, 0);
 		draw_flushArea(0,0,128,64);
-		Clear_RegisterQueueHandle();
-		vPortFree(blocks);
-		blocks=NULL;                             
-		vQueueDelete(g_xQueuePlatform_RT);		  
-		vQueueDelete(g_xQueuePlatform_IR);
-		vQueueDelete(g_QueueLine);
+		Rel_resources1();
 		testDrawProcess(&u8g2);
 		xTaskNotifyGive(xTask_ControlHandle);    //通知任务控制任务
 		xSemaphoreGive(g_xIRMutex);//释放锁
@@ -537,5 +524,17 @@ void game1_draw(void)
 	if(lives == 255)
 		draw_string_P(PSTR(STR_GAMEOVER), false, 34, 32);
 
+}
+
+/*Release resources*/
+void Rel_resources1(void)
+{
+	Clear_RegisterQueueHandle();
+	vPortFree(blocks);
+	blocks=NULL;                             
+	vQueueDelete(g_xQueuePlatform_RT);		  
+	vQueueDelete(g_xQueuePlatform_IR);
+	vQueueDelete(g_QueueLine);
+	
 }
 

@@ -44,11 +44,14 @@ static QueueHandle_t g_xQueuePlatform_RT;
 static QueueSetHandle_t  g_xQueueLists;
 static byte uptMove1,uptMove2;
 static byte lives_0,lives_1, lives_origin; /*生命变量*/
+ static bool first = 1;
+
 void game2_draw();
 
 /*任务句柄*/
 static TaskHandle_t xgame2PlatHandel1;
 static TaskHandle_t xgame2PlatHandel2;
+static TaskHandle_t xgame2InputHandel;
 /*extern*/
 extern TaskHandle_t xgame2_TaskHandle;
 
@@ -72,11 +75,10 @@ static s_ball ball;
 
 
 /*宏定义*/
-#define NOINVERT	false
-#define INVERT		true
+
 #define begin_lives 5
 static bool btnExit();
-
+void Rel_resources2(void);
 
 /*挡球板1任务*/
 void platform1_task(void* params)
@@ -89,8 +91,7 @@ void platform1_task(void* params)
 	
 	while(1)
 	{
-		if(ulTaskNotifyTake(pdTRUE,0))
-			vTaskDelete(NULL);
+		
 		xQueueReceive(g_xQueuePlatform1,&idata,portMAX_DELAY);
 		uptMove1=idata.data;   
 		// Hide platform
@@ -129,8 +130,7 @@ void platform2_task(void* params)
 	
 	while(1)
 	{
-		if(ulTaskNotifyTake(pdTRUE,0))
-			vTaskDelete(NULL);
+		
 		xQueueReceive(g_xQueuePlatform2,&idata,portMAX_DELAY);
 		uptMove1=idata.data;   
 		// Hide platform
@@ -183,9 +183,10 @@ static void InputDataIR(void)
 	}
 	else if(idata.data==0xc2)
 	{
-		xTaskNotifyGive(xgame2PlatHandel1);
-		xTaskNotifyGive(xgame2PlatHandel2);
+		vTaskDelete(xgame2PlatHandel1);
+		vTaskDelete(xgame2PlatHandel2);
 		xTaskNotifyGive(xgame2_TaskHandle);
+		vTaskDelete(NULL);
 	}
 	else
 	{
@@ -268,8 +269,7 @@ static void InputDataInPlatform(void *params)
 	QueueHandle_t g_TempQueueLine;
 	while(1)
 	{
-		if(ulTaskNotifyTake(pdTRUE,0))
-			vTaskDelete(NULL);
+		
 		g_TempQueueLine=xQueueSelectFromSet(g_xQueueLists,portMAX_DELAY);
 		if(g_TempQueueLine)
 		{
@@ -299,6 +299,9 @@ void game2_task(void* params)
 	/*初始化*/
     draw_init();
     draw_end();
+	RotaryEncoder_Init();
+	first=1; 
+	
 	/*挡球板初始化赋值坐标*/
 	g_framebuffer = LCD_GetFrameBuffer(&g_xres, &g_yres, &g_bpp);
 	platform1.x = g_xres/2-6;
@@ -317,15 +320,15 @@ void game2_task(void* params)
 	g_xQueuePlatform2 = xQueueCreate(15,sizeof(TypedefDataOT));
 	
 	/*创建队列集*/
-	g_xQueueLists = xQueueCreateSet(45);
+	g_xQueueLists = xQueueCreateSet(30);
 	xQueueAddToSet(g_xQueuePlatform2_IR,g_xQueueLists);
 	xQueueAddToSet(g_xQueuePlatform_RT,g_xQueueLists);
 	
 	xSemaphoreTake(g_xIRMutex,0);     //上锁
 	/*创建任务*/
-	xTaskCreate(InputDataInPlatform,"InputDatatask",128,NULL,osPriorityNormal+1,NULL);
-	xTaskCreate(platform1_task,"platform_task1",128,&platform1,osPriorityNormal+1,xgame2PlatHandel1);
-	xTaskCreate(platform2_task,"platform_task2",128,&platform2,osPriorityNormal+1,xgame2PlatHandel2);
+	xTaskCreate(InputDataInPlatform,"InputDatatask",50,NULL,osPriorityNormal+1,&xgame2InputHandel);
+	xTaskCreate(platform1_task,"platform_task1",90,&platform1,osPriorityNormal+1,&xgame2PlatHandel1);
+	xTaskCreate(platform2_task,"platform_task2",90,&platform2,osPriorityNormal+1,&xgame2PlatHandel2);
 	
 	/*初始化球*/
 	ball.x = g_xres / 2;
@@ -341,9 +344,10 @@ void game2_task(void* params)
 		game2_draw();
 		if(ulTaskNotifyTake(pdTRUE,0))
 		{
+			/*释放资源*/
 			draw_bitmap(0,0, clearALL, 128,64, NOINVERT, 0);
 			draw_flushArea(0,0,128,64);
-			Clear_RegisterQueueHandle();
+			Rel_resources2();
 			testDrawProcess(&u8g2);
 			xTaskNotifyGive(xTask_ControlHandle);    //通知任务控制任务
 			xSemaphoreGive(g_xIRMutex);//释放锁
@@ -366,7 +370,7 @@ void game2_draw(void* params)
 	byte platformXtmp_1 = platform1.x;
 	byte platformXtmp_2 = platform2.x;
 	byte i;
-    static bool first = 1;
+   
 
 	// Move ball
 	// hide ball
@@ -513,12 +517,30 @@ static bool btnExit()
 //	}
 	if(lives_1 == 255 || lives_0 == 255)
 	{
-		//pwrmgr_setState(PWR_ACTIVE_DISPLAY, PWR_STATE_NONE);	
-		//animation_start(display_load, ANIM_MOVE_OFF);
-		
+		vTaskDelay(2000);
+		draw_bitmap(0,0, clearALL, 128,64, NOINVERT, 0);
+		draw_flushArea(0,0,128,64);
+		Rel_resources2();
+		testDrawProcess(&u8g2);
+		xTaskNotifyGive(xTask_ControlHandle);    //通知任务控制任务
+		xSemaphoreGive(g_xIRMutex);//释放锁
+		vTaskDelete(xgame2PlatHandel1);
+		vTaskDelete(xgame2PlatHandel2);
+		vTaskDelete(xgame2InputHandel);
 		vTaskDelete(NULL);
 	}
 	return true;
+}
+
+
+void Rel_resources2(void)
+{
+	Clear_RegisterQueueHandle();
+	vQueueDelete(g_xQueuePlatform1);
+	vQueueDelete(g_xQueuePlatform2);
+	vQueueDelete(g_xQueuePlatform2_IR);
+	vQueueDelete(g_xQueuePlatform_RT);
+	vQueueDelete(g_xQueueLists);
 }
 
 

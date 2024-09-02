@@ -11,10 +11,13 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-
+#include <stdlib.h>
 typedef uint8_t byte;
 typedef uint16_t uint;
 typedef uint32_t ulong;
+
+typedef unsigned char millis8_t;
+typedef unsigned int  millis_t;
 
 
 #define UPT_MOVE_NONE	0
@@ -24,11 +27,20 @@ typedef uint32_t ulong;
 #define ploatfrom_1     0
 #define ploatfrom_2     1
 
-
+#define NOINVERT	false
+#define INVERT		true
 
 typedef struct Data_OT{
 	int32_t data;
 }TypedefDataOT;
+
+
+typedef enum
+{
+	DISPLAY_DONE,
+	DISPLAY_BUSY,
+//	DISPLAY_TOOFAST
+} display_t;
 
 #define PROGMEM
 

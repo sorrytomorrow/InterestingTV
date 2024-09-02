@@ -20,6 +20,8 @@
 #include "driver_uart.h"
 
 #include "data.h"
+#include "Game_Snake.h"
+
 /**
   ******************************************************************************
   * File Name          : freertos.c
@@ -149,9 +151,14 @@ void MX_FREERTOS_Init(void) {
   
 //  extern void Start_Menu(void);
 //  xTaskCreate(Start_Menu,"Start_Menu_Task",128, NULL, osPriorityNormal,NULL);
-
+	
   extern void Task_Control(void);
   xTaskCreate(Task_Control,"Task_Control",128, NULL, osPriorityNormal,&xTask_ControlHandle);
+	
+    //Game_Snake_Init();
+//	extern void Game_Snake_Init(void* params);
+//	xTaskCreate(Game_Snake_Init,"Task_Control",128, NULL, osPriorityNormal,&xTask_ControlHandle);
+  
 	
 //	extern void Third_Menu(void* params);
 //	xTaskCreate(Third_Menu,"Start_Menu_Task",128, &AllItem_Data[1], osPriorityNormal,NULL);

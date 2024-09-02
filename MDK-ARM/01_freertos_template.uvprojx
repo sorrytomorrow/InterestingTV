@@ -1507,6 +1507,21 @@
               <FileType>5</FileType>
               <FilePath>..\nwatch\Data.h</FilePath>
             </File>
+            <File>
+              <FileName>Game_Snake.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\nwatch\Game_Snake.c</FilePath>
+            </File>
+            <File>
+              <FileName>Game_Snake.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\nwatch\Game_Snake.h</FilePath>
+            </File>
+            <File>
+              <FileName>Game_Snake_Data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\nwatch\Game_Snake_Data.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

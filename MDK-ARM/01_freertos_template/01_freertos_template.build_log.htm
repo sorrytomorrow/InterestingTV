@@ -22,14 +22,12 @@ Dialog DLL:      TCM.DLL V1.46.0.0
  
 <h2>Project:</h2>
 D:\SingleChip\DShanMCU-F103\Study\MyProject\01_freertos_template\MDK-ARM\01_freertos_template.uvprojx
-Project File Date:  08/31/2024
+Project File Date:  09/01/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\SingleChip\keil5_532\ARM\ARMCC\Bin'
 Build target '01_freertos_template'
-compiling game1.c...
-../Drivers/DshanMCU-F103/driver_rotary_encoder.h(71): warning:  #1295-D: Deprecated declaration Get_QueueDriRotenHandle - give arg types
-  QueueHandle_t Get_QueueDriRotenHandle();
+compiling TaskFun.c...
 ..\nwatch\Image.h(27): warning:  #1-D: last line of file ends without a newline
   #endif
 ../u8g2/fun_u8g2.h(8): warning:  #1-D: last line of file ends without a newline
@@ -38,37 +36,17 @@ compiling game1.c...
   #endif
 ..\nwatch\Data.h(83): warning:  #1-D: last line of file ends without a newline
   #endif
-..\nwatch\game1.c(96): warning:  #177-D: variable "dev"  was declared but never referenced
-      uint8_t dev, data, last_data;
-..\nwatch\game1.c(96): warning:  #177-D: variable "data"  was declared but never referenced
-      uint8_t dev, data, last_data;
-..\nwatch\game1.c(96): warning:  #177-D: variable "last_data"  was declared but never referenced
-      uint8_t dev, data, last_data;
-..\nwatch\game1.c(98): warning:  #177-D: variable "Statue"  was declared but never referenced
-  	uint8_t Statue=0;
-..\nwatch\game1.c(280): warning:  #177-D: variable "dev"  was declared but never referenced
-      uint8_t dev, data, last_data;
-..\nwatch\game1.c(280): warning:  #177-D: variable "data"  was declared but never referenced
-      uint8_t dev, data, last_data;
-..\nwatch\game1.c(280): warning:  #177-D: variable "last_data"  was declared but never referenced
-      uint8_t dev, data, last_data;
-..\nwatch\game1.c(395): warning:  #177-D: variable "platformXtmp"  was declared but never referenced
-  	byte platformXtmp = platformX;
-..\nwatch\game1.c(379): warning:  #177-D: function "btnRight"  was declared but never referenced
-  static bool btnRight()
-..\nwatch\game1.c(385): warning:  #177-D: function "btnLeft"  was declared but never referenced
-  static bool btnLeft()
-..\nwatch\game1.c(77): warning:  #177-D: variable "ifDelete"  was declared but never referenced
-  static bool ifDelete=false;
-..\nwatch\game1.c(79): warning:  #550-D: variable "g_framebuffer"  was set but never used
-  static uint8_t *g_framebuffer;
-..\nwatch\game1.c(86): warning:  #177-D: variable "xgame1WDataHandel"  was declared but never referenced
-  static TaskHandle_t xgame1WDataHandel;
-..\nwatch\game1.c: 18 warnings, 0 errors
+..\nwatch\TaskFun.c(56): warning:  #167-D: argument of type "signed char *" is incompatible with parameter of type "char *"
+  		vTaskList(pcWriteBuffer);
+..\nwatch\TaskFun.c(39): warning:  #177-D: variable "freeNum"  was declared but never referenced
+  	UBaseType_t freeNum;
+..\nwatch\TaskFun.c(40): warning:  #177-D: variable "xTaskHandleCur"  was declared but never referenced
+  	TaskHandle_t xTaskHandleCur;	
+..\nwatch\TaskFun.c: 7 warnings, 0 errors
 linking...
-Program Size: Code=35136 RO-data=22148 RW-data=776 ZI-data=17432  
+Program Size: Code=36400 RO-data=22212 RW-data=816 ZI-data=18560  
 FromELF: creating hex file...
-"01_freertos_template\01_freertos_template.axf" - 0 Error(s), 18 Warning(s).
+"01_freertos_template\01_freertos_template.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 

@@ -82,3 +82,4 @@
 01_freertos_template\freertos.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\stdarg.h
 01_freertos_template\freertos.o: D:\SingleChip\keil5_532\ARM\ARMCC\Bin\..\include\limits.h
 01_freertos_template\freertos.o: ../u8g2/stm32_u8g2.h
+01_freertos_template\freertos.o: ../nwatch/Game_Snake.h

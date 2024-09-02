@@ -5,15 +5,18 @@
 struct Time_Data TimeClock={22,0,0};
 
 /*Data*/
-const char* GameData[]={"Game","PlatForm","PlatForm Two","Car"};
+const char* GameData[]={"Game","PlatForm","PlatForm Two","Snake"};
 const char* MusicData[]={"Music","Gu Yong Zhe"};
 const char* SettingData[]={"Setting"};
 const char* LightData[]={"Light","Open","Close"};
 extern void game1_task(void* params);
+extern void game2_task(void* params);
+extern void Game_Snake_Init(void* params);
 TaskHandle_t xgame1_TaskHandle=NULL;
 TaskHandle_t xgame2_TaskHandle=NULL;
-extern void game2_task(void* params);
-struct Task_Data Task_GameData[]={{NULL,NULL,NULL,NULL,128},{"game1Task",game1_task,&xgame1_TaskHandle,NULL,128},{"game2Task",game2_task,&xgame2_TaskHandle,NULL,128}};
+TaskHandle_t xgame3_TaskHandle=NULL;
+struct Task_Data Task_GameData[]={{NULL,NULL,NULL,NULL,128},{"game1Task",game1_task,&xgame1_TaskHandle,NULL,128},{"game2Task",game2_task,&xgame2_TaskHandle,NULL,128},
+															{"game3Task",Game_Snake_Init,&xgame3_TaskHandle,NULL,250}};
 struct Item_Data AllItem_Data[] = {{NULL,NULL,NULL},{LightData,3,NULL},{MusicData,2,NULL},{GameData,4,Task_GameData},{SettingData,1,NULL}};
 
 
@@ -30,7 +33,7 @@ static signed char pcWriteBuffer[200];
 SemaphoreHandle_t g_xIRMutex;
 
 
-							
+			
 void Task_Control(void)
 {
 	UBaseType_t freeNum;
@@ -43,11 +46,9 @@ void Task_Control(void)
 	u8g2Init(&u8g2);
 	
 	//创建所有任务
-	//CreateTask(&Task_AllData[Layer+2]);
-//	CreateTask(&Task_AllData[Layer+1]);
+	
 	CreateTask(&Task_AllData[Layer]);
-//	SuspendTask(&Task_AllData[Layer+1]);
-	//SuspendTask(&Task_AllData[Layer+2]);
+
 	while(1)
 	{
 		xSemaphoreTake(g_xIRMutex,portMAX_DELAY);
@@ -124,7 +125,7 @@ void DelectTask(void* params)
 }
 
 /*analysis IR_Data*/
-void Anal_IRData(void* params)
+static void Anal_IRData(void* params)
 {
 	TypedefDataIR* TempData=params;
 	if(TempData->data==0xe0)
