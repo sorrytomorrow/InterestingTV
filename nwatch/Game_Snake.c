@@ -124,7 +124,7 @@ uint8_t Game_Snake_Advance(Game_Snake_Class* Snake)//把蛇映射到地图
 }
 
 /*Anl_InputData*/
-void Anl_InputData_iR(void* params,TypedefDataIR* iData)
+static void Anl_InputData_iR(void* params,TypedefDataIR* iData)
 {
 	static WSAD Last_Temp=NULL;
 	WSAD* Temp_H = params;

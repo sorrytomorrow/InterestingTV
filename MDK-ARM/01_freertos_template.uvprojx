@@ -394,11 +394,6 @@
           <GroupName>Application/User/Core</GroupName>
           <Files>
             <File>
-              <FileName>music.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\music.c</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/main.c</FilePath>
@@ -1521,6 +1516,26 @@
               <FileName>Game_Snake_Data.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\nwatch\Game_Snake_Data.h</FilePath>
+            </File>
+            <File>
+              <FileName>Light.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\nwatch\Light.c</FilePath>
+            </File>
+            <File>
+              <FileName>musicAll.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\nwatch\musicAll.c</FilePath>
+            </File>
+            <File>
+              <FileName>music1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\nwatch\music1.c</FilePath>
+            </File>
+            <File>
+              <FileName>Writer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\nwatch\Writer.c</FilePath>
             </File>
           </Files>
         </Group>

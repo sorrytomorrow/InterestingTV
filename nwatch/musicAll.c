@@ -1,7 +1,7 @@
 
 #include "driver_passive_buzzer.h"
 #include "driver_timer.h"
-
+#include "typedefs.h"
 /**
   ******************************************************************************
   * @file           : Music.h
@@ -43,7 +43,7 @@
 /* USER CODE END Includes */
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PT */
-	uint16_t Tone_Index[8][3]={
+const	uint16_t Tone_Index[8][3] PROGMEM={
 		{0  ,0  ,0   },
 		{262,523,1046},
 		{294,587,1175},
@@ -57,67 +57,69 @@
 ////中速代表乐曲速度术语里的Moderato，或称中板，每分钟在88到104拍。
 ////中速 每分钟100拍 一拍600ms
 //两只老虎简谱，没有细调
-//	uint16_t Music_Two_Tigers[][3]={
-//		{0,0,570},
-//		{1,Alto,One_Beat},
-//		{2,Alto,One_Beat},
-//		{3,Alto,One_Beat},
-//		{1,Alto,One_Beat},
-//		
-//		{0,Alto,24},
-//		
-//		{1,Alto,One_Beat},
-//		{2,Alto,One_Beat},
-//		{3,Alto,One_Beat},
-//		{1,Alto,One_Beat},
-//		
-//		//{0,Alto,3},
-//		
-//		{3,Alto,One_Beat},
-//		{4,Alto,One_Beat},
-//		{5,Alto,One_Beat},
-//		{0,Alto,One_Beat},
-//		
-//		
-//		{3,Alto,One_Beat},
-//		{4,Alto,One_Beat},
-//		{5,Alto,One_Beat},
-//		{0,Alto,One_Beat},
-//		
-//		
-//		{5,Alto,One_TWO_Beat},
-//		{6,Alto,One_TWO_Beat},
-//		{5,Alto,One_TWO_Beat},
-//		{4,Alto,One_TWO_Beat},
-//		{3,Alto,One_Beat},
-//		{1,Alto,One_Beat},
-//		
-//		//{0,Alto,3},
-//		
-//		{5,Alto,One_TWO_Beat},
-//		{6,Alto,One_TWO_Beat},
-//		{5,Alto,One_TWO_Beat},
-//		{4,Alto,One_TWO_Beat},
-//		{3,Alto,One_Beat},
-//		{1,Alto,One_Beat},
-//		
-//		{0,Alto,24},
-//		
-//		{1,Alto,One_Beat},
-//		{5,Bass,One_Beat},
-//		{1,Alto,One_Beat},
-//		{0,Alto,One_Beat},
-//		
-//		
-//		{1,Alto,One_Beat},
-//		{5,Bass,One_Beat},
-//		{1,Alto,One_Beat},
-//		{0,Alto,One_Beat},
-//		
+const	uint16_t Music_Two_Tigers[][3] PROGMEM={
+		{0,0,570},
+		{1,Alto,One_Beat},
+		{2,Alto,One_Beat},
+		{3,Alto,One_Beat},
+		{1,Alto,One_Beat},
+		
+		{0,Alto,24},
+		
+		{1,Alto,One_Beat},
+		{2,Alto,One_Beat},
+		{3,Alto,One_Beat},
+		{1,Alto,One_Beat},
+		
+		//{0,Alto,3},
+		
+		{3,Alto,One_Beat},
+		{4,Alto,One_Beat},
+		{5,Alto,One_Beat},
+		{0,Alto,One_Beat},
+		
+		
+		{3,Alto,One_Beat},
+		{4,Alto,One_Beat},
+		{5,Alto,One_Beat},
+		{0,Alto,One_Beat},
+		
+		
+		{5,Alto,One_TWO_Beat},
+		{6,Alto,One_TWO_Beat},
+		{5,Alto,One_TWO_Beat},
+		{4,Alto,One_TWO_Beat},
+		{3,Alto,One_Beat},
+		{1,Alto,One_Beat},
+		
+		//{0,Alto,3},
+		
+		{5,Alto,One_TWO_Beat},
+		{6,Alto,One_TWO_Beat},
+		{5,Alto,One_TWO_Beat},
+		{4,Alto,One_TWO_Beat},
+		{3,Alto,One_Beat},
+		{1,Alto,One_Beat},
+		
+		{0,Alto,24},
+		
+		{1,Alto,One_Beat},
+		{5,Bass,One_Beat},
+		{1,Alto,One_Beat},
+		{0,Alto,One_Beat},
+		
+		
+		{1,Alto,One_Beat},
+		{5,Bass,One_Beat},
+		{1,Alto,One_Beat},
+		{0,Alto,One_Beat},
+		
 
-//	};
+	};
+
+#if 1
 //中速 每分钟65拍 一拍920ms
-uint16_t Music_Lone_Brave[][3]={
+const uint16_t Music_Lone_Brave[][3] PROGMEM={
 	//曲信息
 	{0,0,920},
 	
@@ -482,7 +484,7 @@ uint16_t Music_Lone_Brave[][3]={
 
 	{0,Alto,One_Beat} ,
 };
-
+#endif
 
 /* USER CODE END PT */
 /* Function definition -------------------------------------------------------*/
@@ -492,7 +494,7 @@ uint16_t Music_Lone_Brave[][3]={
   * @Introduce  		开始播放音乐						
   * @Return 				NULL
   */
-void MUSIC_Analysis(void){
+void MUSIC1_Analysis(void){
 	uint16_t MusicBeatNum = ((((sizeof(Music_Lone_Brave))/2)/3)-1);
 	
 	uint16_t MusicSpeed = Music_Lone_Brave[0][2];
@@ -504,17 +506,33 @@ void MUSIC_Analysis(void){
 		vTaskDelay(MusicSpeed/Music_Lone_Brave[i][2]); //vTaskDelay阻塞函数，这个函数里面可以是时间也可以是事件event，等待时间或者是event
 	}
 }
+
+
+void MUSIC2_Analysis(void){
+	uint16_t MusicBeatNum = ((((sizeof(Music_Two_Tigers))/2)/3)-1);
 	
+	uint16_t MusicSpeed = Music_Two_Tigers[0][2];
+	for(uint16_t i = 1;i<=MusicBeatNum;i++){
+		//BSP_Buzzer_SetFrequency(Tone_Index[Music_Lone_Brave[i][0]][Music_Lone_Brave[i][1]]);
+		PassiveBuzzer_Set_Freq_Duty(Tone_Index[Music_Two_Tigers[i][0]][Music_Two_Tigers[i][1]], 50);
+		//HAL_Delay(MusicSpeed/Music_Lone_Brave[i][2]);
+		//mdelay(MusicSpeed/Music_Lone_Brave[i][2]);
+		vTaskDelay(MusicSpeed/Music_Two_Tigers[i][2]); //vTaskDelay阻塞函数，这个函数里面可以是时间也可以是事件event，等待时间或者是event
+	}
+}
+
+
 /* USER CODE END FD */
 /************************ (C) COPYRIGHT Lesterbor *****END OF FILE****/
 	
 	
-void PlayMusic(void *params)
-{
-	PassiveBuzzer_Init();
-	
-	while (1)
-	{
-		MUSIC_Analysis();
-	}
-}
+//void PlayMusic(void *params)
+//{
+//	PassiveBuzzer_Init();
+//	while(1)
+//	{
+//		MUSIC_Analysis();
+//	}
+//	
+//	
+//}

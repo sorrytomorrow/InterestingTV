@@ -47,8 +47,14 @@ struct Task_Data{
 	char* Name;
 	void (*func)(void* params);
 	TaskHandle_t*  p_TaskHandle;
-	struct Item_Data* p_AllItem_Data;
+	//struct Item_Data* p_AllItem_Data;
+	void* p_AllItem_Data;
 	uint32_t Word;
+};
+
+struct MusicFun{
+	void (* func)(void);
+	TaskHandle_t* Music_Handle;
 };
 
 

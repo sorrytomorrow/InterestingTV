@@ -155,6 +155,9 @@ void MX_FREERTOS_Init(void) {
   extern void Task_Control(void);
   xTaskCreate(Task_Control,"Task_Control",128, NULL, osPriorityNormal,&xTask_ControlHandle);
 	
+//  extern void Music1_Task(void* params);
+//  xTaskCreate(Music1_Task,"Task_Control",128, NULL, osPriorityNormal+1,NULL);  
+  
     //Game_Snake_Init();
 //	extern void Game_Snake_Init(void* params);
 //	xTaskCreate(Game_Snake_Init,"Task_Control",128, NULL, osPriorityNormal,&xTask_ControlHandle);
@@ -192,6 +195,7 @@ void MX_FREERTOS_Init(void) {
   * @param  argument: Not used
   * @retval None
   */
+#if 0
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
@@ -272,7 +276,7 @@ void StartDefaultTask(void *argument)
     }
   /* USER CODE END StartDefaultTask */
 }
-
+#endif
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 

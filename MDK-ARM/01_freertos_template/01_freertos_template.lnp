@@ -1,6 +1,5 @@
 --cpu Cortex-M3
 "01_freertos_template\startup_stm32f103xb.o"
-"01_freertos_template\music.o"
 "01_freertos_template\main.o"
 "01_freertos_template\gpio.o"
 "01_freertos_template\freertos.o"
@@ -74,6 +73,10 @@
 "01_freertos_template\menuall.o"
 "01_freertos_template\taskfun.o"
 "01_freertos_template\game_snake.o"
+"01_freertos_template\light.o"
+"01_freertos_template\musicall.o"
+"01_freertos_template\music1.o"
+"01_freertos_template\writer.o"
 "01_freertos_template\fun_u8g2.o"
 "01_freertos_template\mui.o"
 "01_freertos_template\mui_u8g2.o"

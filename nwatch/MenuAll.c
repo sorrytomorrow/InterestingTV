@@ -8,7 +8,7 @@ uint8_t i_pageAll=1;
 static int16_t index[][6] = {{8,17},{52,17},{96,17},{-36,17},{140,17}}; //选框的坐标
 
 struct Image_Data AllImage_Data[]={{Clear_Big,""},{Light,"Light"},{Music,"Music"},
-									{Game,"Game"},{Set,"SetUp"},{Exit,"Exit"},{Clear_Big,""}};
+									{Game,"Game"},{Set,"SetUp"},{Writer,"Writer"},{Video,"Video"},{Clear_Big,""}};
 
 
 									
@@ -155,7 +155,7 @@ void Second_Menu(void* params)
 		{
 			
 			u8g2_DrawXBMP(&u8g2,35,51,80,16,Clear_Word);
-			while(j<44&&i_page<5)
+			while(j<44&&i_page<6)       //6为item最大数
 			{
 				u8g2_DrawXBMP(&u8g2,0,16,128,32,Clear_Big);
 				
@@ -170,8 +170,8 @@ void Second_Menu(void* params)
 				
 			}
 			i_page++;j=0;
-			if(i_page>=5)
-				i_page=5;
+			if(i_page>=6)
+				i_page=6;
 			width = u8g2_GetStrWidth(&u8g2,AllImage_Data[i_page].Name);
 			Ment=None;
 			
@@ -274,7 +274,7 @@ void Third_Menu(void* params)
 		{
 			Ment=None;
 			u8g2_ClearBuffer(&u8g2);
-			xSemaphoreGive(g_xIRMutex); 
+			xSemaphoreGive(g_xIRMutex); 			
 			CreateTask(&TempData->p_FunData[i_index]);
 			vTaskDelete(NULL);
 		}

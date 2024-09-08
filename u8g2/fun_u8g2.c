@@ -1,5 +1,5 @@
 #include "u8g2.h"
-
+#include <string.h>
 
 #define SEND_BUFFER_DISPLAY_MS(u8g2, ms)\
   do {\
@@ -59,3 +59,12 @@ void draw_gear(u8g2_t *u8g2, int x, int y, int size, int tooth_width)
 		}
 		u8g2_SendBuffer(u8g2);
 }
+
+
+
+
+
+
+
+
+
